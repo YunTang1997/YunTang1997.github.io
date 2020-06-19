@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuntang1997.github.io/"/>
-  <updated>2020-06-17T12:26:08.270Z</updated>
+  <updated>2020-06-19T14:51:37.758Z</updated>
   <id>https://yuntang1997.github.io/</id>
   
   <author>
@@ -17,35 +17,31 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="https://yuntang1997.github.io/2020/06/17/hello-world/"/>
-    <id>https://yuntang1997.github.io/2020/06/17/hello-world/</id>
-    <published>2020-06-17T12:48:20.202Z</published>
-    <updated>2020-06-17T12:26:08.270Z</updated>
+    <title>HDFS高可用(HA)理论概述</title>
+    <link href="https://yuntang1997.github.io/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/"/>
+    <id>https://yuntang1997.github.io/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/</id>
+    <published>2020-06-19T07:39:00.000Z</published>
+    <updated>2020-06-19T14:51:37.758Z</updated>
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;!-- TOC --&gt;
+      &lt;!-- TOC --&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#quick-start&quot;&gt;Quick Start&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#create-a-new-post&quot;&gt;Create a new post&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#run-server&quot;&gt;Run server&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#generate-static-files&quot;&gt;Generate static files&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#deploy-to-remote-sites&quot;&gt;Deploy to remote sites&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#ha概述&quot;&gt;HA概述&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#hdfs-ha的工作机制&quot;&gt;HDFS HA的工作机制&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#hdfs-ha的工作要点&quot;&gt;HDFS HA的工作要点&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#hdfs-ha自动故障转移工作机制&quot;&gt;HDFS-HA自动故障转移工作机制&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- /TOC --&gt;
     
     </summary>
     
     
-      <category term="hexo" scheme="https://yuntang1997.github.io/categories/hexo/"/>
+      <category term="hadoop" scheme="https://yuntang1997.github.io/categories/hadoop/"/>
     
     
-      <category term="hexo基本命令行" scheme="https://yuntang1997.github.io/tags/hexo%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4%E8%A1%8C/"/>
+      <category term="hadoop" scheme="https://yuntang1997.github.io/tags/hadoop/"/>
     
   </entry>
   
@@ -54,7 +50,7 @@
     <link href="https://yuntang1997.github.io/2020/03/24/hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/"/>
     <id>https://yuntang1997.github.io/2020/03/24/hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/</id>
     <published>2020-03-24T12:42:00.000Z</published>
-    <updated>2020-06-17T12:26:08.270Z</updated>
+    <updated>2020-06-19T07:34:49.893Z</updated>
     
     <summary type="html">
     
@@ -86,7 +82,7 @@
     <link href="https://yuntang1997.github.io/2020/02/23/git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
     <id>https://yuntang1997.github.io/2020/02/23/git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</id>
     <published>2020-02-23T07:46:39.000Z</published>
-    <updated>2020-06-18T05:18:23.359Z</updated>
+    <updated>2020-06-19T07:34:36.716Z</updated>
     
     <summary type="html">
     
@@ -113,10 +109,10 @@
   
   <entry>
     <title>基于hexo、github搭建个人博客</title>
-    <link href="https://yuntang1997.github.io/2020/02/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/"/>
-    <id>https://yuntang1997.github.io/2020/02/22/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E5%8D%9A%E5%AE%A2/</id>
-    <published>2020-02-22T06:45:09.000Z</published>
-    <updated>2020-06-18T10:56:51.163Z</updated>
+    <link href="https://yuntang1997.github.io/2020/02/22/%E5%9F%BA%E4%BA%8Ehexo%E3%80%81github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/"/>
+    <id>https://yuntang1997.github.io/2020/02/22/%E5%9F%BA%E4%BA%8Ehexo%E3%80%81github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/</id>
+    <published>2020-02-22T06:45:00.000Z</published>
+    <updated>2020-06-19T14:27:31.426Z</updated>
     
     <summary type="html">
     
