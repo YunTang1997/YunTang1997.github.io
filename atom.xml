@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuntang1997.github.io/"/>
-  <updated>2020-06-21T08:31:05.350Z</updated>
+  <updated>2020-06-21T14:26:35.584Z</updated>
   <id>https://yuntang1997.github.io/</id>
   
   <author>
@@ -15,6 +15,108 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql排序查询</title>
+    <link href="https://yuntang1997.github.io/2020/06/21/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5(%E6%8E%92%E5%BA%8F%E6%9F%A5%E8%AF%A2)/"/>
+    <id>https://yuntang1997.github.io/2020/06/21/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5(%E6%8E%92%E5%BA%8F%E6%9F%A5%E8%AF%A2)/</id>
+    <published>2020-06-21T14:17:15.112Z</published>
+    <updated>2020-06-21T14:26:35.584Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#排序查询语法&quot;&gt;排序查询语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#按表达式排序&quot;&gt;按表达式排序&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#按别名排序&quot;&gt;按别名排序&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#按函数排序&quot;&gt;按函数排序&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#升降混合排序&quot;&gt;升降混合排序&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#练习&quot;&gt;练习&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql条件查询</title>
+    <link href="https://yuntang1997.github.io/2020/06/21/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80(%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2)/"/>
+    <id>https://yuntang1997.github.io/2020/06/21/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80(%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2)/</id>
+    <published>2020-06-21T13:31:34.446Z</published>
+    <updated>2020-06-21T13:47:01.138Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#条件查询语法&quot;&gt;条件查询语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#按条件表达式筛选&quot;&gt;按条件表达式筛选&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#按逻辑表示筛选&quot;&gt;按逻辑表示筛选&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#模糊查询&quot;&gt;模糊查询&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#like&quot;&gt;like&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#between-and&quot;&gt;between and&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#in&quot;&gt;in&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#is-nullis-not-null&quot;&gt;is null、is not null&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#安全等于判断是否等于null或者数值如果等于返回true但可读性很差&quot;&gt;安全等于（&amp;lt;=&amp;gt;），判断是否等于null或者数值，如果等于返回true，但可读性很差&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#练习&quot;&gt;练习&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql基础查询</title>
+    <link href="https://yuntang1997.github.io/2020/06/21/Mysq%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80(%E5%9F%BA%E7%A1%80%E6%9F%A5%E8%AF%A2)/"/>
+    <id>https://yuntang1997.github.io/2020/06/21/Mysq%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80(%E5%9F%BA%E7%A1%80%E6%9F%A5%E8%AF%A2)/</id>
+    <published>2020-06-21T13:11:16.601Z</published>
+    <updated>2020-06-21T13:31:01.304Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#基础查询语法&quot;&gt;基础查询语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#使用指定的数据库&quot;&gt;使用指定的数据库&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#查询表中的单个多个字段&quot;&gt;查询表中的单个、多个字段&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#查询常量值&quot;&gt;查询常量值&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#查询表达式&quot;&gt;查询表达式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#查询函数&quot;&gt;查询函数&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#给字段取别名&quot;&gt;给字段取别名&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#去重distinct&quot;&gt;去重（distinct）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#号的作用&quot;&gt;+号的作用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#连接多个字段concat&quot;&gt;连接多个字段（concat）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#练习&quot;&gt;练习&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>HDFS高可用(HA)理论概述</title>
@@ -103,8 +205,8 @@
     <title>git的安装与配置</title>
     <link href="https://yuntang1997.github.io/2020/02/23/git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/"/>
     <id>https://yuntang1997.github.io/2020/02/23/git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/</id>
-    <published>2020-02-23T07:46:39.000Z</published>
-    <updated>2020-06-19T07:34:36.716Z</updated>
+    <published>2020-02-23T07:46:00.000Z</published>
+    <updated>2020-06-21T14:18:05.734Z</updated>
     
     <summary type="html">
     
