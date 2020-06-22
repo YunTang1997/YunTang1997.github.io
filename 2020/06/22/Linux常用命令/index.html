@@ -85,7 +85,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Linux," />
 
 
 
@@ -103,13 +103,16 @@
 
 
 
-<meta name="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-<meta property="og:type" content="website">
-<meta property="og:title" content="YunTang1997の博客">
-<meta property="og:url" content="https://yuntang1997.github.io/archives/2020/index.html">
+<meta name="description" content="开机、重启和用户登录 用户注销 用户管理 用户组管理 用户和组的相关文件 指定运行级别 应用   帮助指令 文件目录指令">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux常用命令及重要文件">
+<meta property="og:url" content="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="YunTang1997の博客">
-<meta property="og:description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+<meta property="og:description" content="开机、重启和用户登录 用户注销 用户管理 用户组管理 用户和组的相关文件 指定运行级别 应用   帮助指令 文件目录指令">
+<meta property="article:published_time" content="2020-06-22T08:30:00.000Z">
+<meta property="article:modified_time" content="2020-06-22T14:26:49.854Z">
 <meta property="article:author" content="YunTang1997">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
 
 
@@ -139,13 +142,13 @@
 
 
 
-  <link rel="canonical" href="https://yuntang1997.github.io/archives/2020/"/>
+  <link rel="canonical" href="https://yuntang1997.github.io/2020/06/22/Linux常用命令/"/>
 
 
 
 
 
-  <title>归档 | YunTang1997の博客</title>
+  <title>Linux常用命令及重要文件 | YunTang1997の博客</title>
   
 
 
@@ -170,7 +173,7 @@
     
   
 
-  <div class="container sidebar-position-left  page-archive  ">
+  <div class="container sidebar-position-left page-post-detail ">
     <div class="headband"></div>
 
     <a href="https://github.com/YunTang1997" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="80" height="80" viewBox="0 0 250 250" style="fill:#FD6C6C; 
@@ -315,407 +318,468 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">Linux常用命令及重要文件</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-22T16:30:00+08:00">
+                2020-06-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 10 篇日志。 继续努力。
-      </span>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
 
-      
-
-        
-        
-        
-
-        
+                
+                
+              
+            </span>
           
-          <div class="collection-title">
-            <h2 class="archive-year motion-element" id="archive-year-2020">2020</h2>
-          </div>
-        
-        
 
-        
+          
+            
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
+          
+             <span id="/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="leancloud_visitors" data-flag-title="Linux常用命令及重要文件">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" itemprop="url">
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 浏览
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
               
-                <span itemprop="name">Linux常用命令及重要文件</span>
+                
+                  <span class="post-meta-divider">|</span>
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  1.8k
+                </span>
               
-            </a>
-        
-      </h2>
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-22T16:30:00+08:00"
-              content="2020-06-22" >
-          06-22
-        </time>
-      </div>
+              
+                <span class="post-meta-divider">|</span>
+              
 
-    </header>
-  </article>
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  6
+                </span>
+              
+            </div>
+          
 
+          
 
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/21/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5(%E6%8E%92%E5%BA%8F%E6%9F%A5%E8%AF%A2)/" itemprop="url">
-              
-                <span itemprop="name">Mysql排序查询</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-21T22:17:15+08:00"
-              content="2020-06-21" >
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/21/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80(%E6%9D%A1%E4%BB%B6%E6%9F%A5%E8%AF%A2)/" itemprop="url">
-              
-                <span itemprop="name">Mysql条件查询</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-21T21:31:34+08:00"
-              content="2020-06-21" >
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
+        <!-- TOC -->
 
-        
-        
-        
+<ul>
+<li><a href="#开机重启和用户登录">开机、重启和用户登录</a></li>
+<li><a href="#用户注销">用户注销</a></li>
+<li><a href="#用户管理">用户管理</a></li>
+<li><a href="#用户组管理">用户组管理</a></li>
+<li><a href="#用户和组的相关文件">用户和组的相关文件</a></li>
+<li><a href="#指定运行级别">指定运行级别</a><ul>
+<li><a href="#应用">应用</a></li>
+</ul>
+</li>
+<li><a href="#帮助指令">帮助指令</a></li>
+<li><a href="#文件目录指令">文件目录指令</a></li>
+</ul>
+<!-- /TOC -->
+<a id="more"></a>
 
-        
-        
+<h2 id="开机、重启和用户登录"><a href="#开机、重启和用户登录" class="headerlink" title="开机、重启和用户登录"></a>开机、重启和用户登录</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shutdwon -h now  <span class="comment"># 立刻关机</span></span><br><span class="line">shutdwon -h <span class="number">1</span>  <span class="comment"># 1分钟以后关机</span></span><br><span class="line">shutdwon -r now  <span class="comment"># 立刻重启计算机</span></span><br><span class="line">halt  <span class="comment"># 立刻关机，同1</span></span><br><span class="line">reboot  <span class="comment"># 立刻重启，同3</span></span><br><span class="line">sync  <span class="comment"># 把内存的数据同步到磁盘</span></span><br></pre></td></tr></table></figure>
+<p>&#8195;&#8195;<font color="red">注意：不管是重启系统还是关闭系统，首先要运行sync命令，把内存中的数据写到磁盘中，防止数据丢失。</font></p>
+<hr>
+<h2 id="用户注销"><a href="#用户注销" class="headerlink" title="用户注销"></a>用户注销</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logout  <span class="comment"># 注意该命令在图形运行界面无效</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">useradd [选项] 用户名  <span class="comment"># 默认家里目录路径为/home/用户名</span></span><br><span class="line">useradd -d 路径 用户名  <span class="comment"># 为创建用户名并指定家目录路径</span></span><br><span class="line">passwd 用户名  <span class="comment"># 为该用户名添加密码</span></span><br><span class="line">userdel 用户名  <span class="comment"># 删除用户名并且保留该用户的家目录</span></span><br><span class="line">userdel -r 用户名  <span class="comment"># 删除用户名以及该用户的家目录</span></span><br><span class="line">id 用户名  <span class="comment"># 查看用户信息</span></span><br><span class="line">su - 用户名  <span class="comment"># 切换用户名，输入exit返回原用户</span></span><br></pre></td></tr></table></figure>
+<p><font color="red">&#8195;&#8195;删除用户时，一般会保留家目录。</font></p>
+<hr>
+<h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><blockquote>
+<p>组，类似于角色，系统可以对有共性的多个用户进行管理。</p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">groupadd 组名  <span class="comment"># 创建组</span></span><br><span class="line">groupdel 组名  <span class="comment"># 删除组</span></span><br><span class="line">uesradd -g 用户组 用户名  <span class="comment"># 创建用户名同时指定其所属组名（不加-g参数，默认用户名所属组名和用户名相同）</span></span><br><span class="line">uesrmod -g 用户组 用户名  <span class="comment"># 修改用户的组</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="用户和组的相关文件"><a href="#用户和组的相关文件" class="headerlink" title="用户和组的相关文件"></a>用户和组的相关文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/passwd</span><br></pre></td></tr></table></figure>
+<p>&#8195;&#8195;以上路径下的文件为<code>用户（user）</code>的配置文件，记录用户的各种信息。<br>&#8195;&#8195;其中每行的含义为：<br>&#8195;&#8195;<font color="red">用户名：口令：用户标识号：组标识号：注释性描述：主目录：登录Shell</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/shadow</span><br></pre></td></tr></table></figure>
+<p>&#8195;&#8195;以上路径下的文件为<code>口令</code>配置文件。<br>&#8195;&#8195;其中每行的含义为：<br>&#8195;&#8195;<font color="red">登录名：加密口令：最后一次修改时间：最小时间间隔：最大时间间隔：警告时间：不活动时间：失效时间：标志</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/group</span><br></pre></td></tr></table></figure>
+<p>&#8195;&#8195;以上路径下的文件为<code>组（group）</code>的配置文件，记录Linux包含组的各种信息。<br>&#8195;&#8195;其中每行的含义为：<br>&#8195;&#8195;<font color="red">组名：口令：组标识号：组内用户表</font></p>
+<hr>
+<h2 id="指定运行级别"><a href="#指定运行级别" class="headerlink" title="指定运行级别"></a>指定运行级别</h2><ul>
+<li>0：关机</li>
+<li>1：单用户（找回丢失密码）</li>
+<li>2：多用户状态没有网络服务</li>
+<li>3：<font color="red">多用户状态有网络服务</font></li>
+<li>4：系统未使用保留给用户（保留）</li>
+<li>5：<font color="red">图形界面</font></li>
+<li>6：系统重启</li>
+</ul>
+<p>&#8195;&#8195;常用运行级别为3和5。<br>&#8195;&#8195;要修改默认的运行级别可修改文件<code>/etc/inittab的id:5:initdefault:这一行中的数字。</code><br>&#8195;&#8195;切换运行级别命令行：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init[<span class="number">0123456</span>]  <span class="comment"># 切换运行级别</span></span><br></pre></td></tr></table></figure>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>&#8195;&#8195;问：如果忘记了root密码，如何找回root密码？<br>&#8195;&#8195;答：进入<code>单用户模式</code>，然后修改root密码，因为进入单用户模式，root不需要密码就可以登陆。具体过程如下：</p>
+<ol>
+<li>开机<br></li>
+<li>在引导时输入<code>回车键</code><br></li>
+<li>在界面输入<code>e</code><br></li>
+<li>选中界面第二行（编辑内核）<br></li>
+<li>输入<code>e</code><br></li>
+<li>在界面最后一行输入<code>空格和1</code><br></li>
+<li>输入<code>回车键</code><br></li>
+<li>输入<code>b</code><br></li>
+<li>此时进入单用户模式<br></li>
+<li>单用户模式下利用<code>passwd</code>修改root密码<br></li>
+</ol>
+<hr>
+<h2 id="帮助指令"><a href="#帮助指令" class="headerlink" title="帮助指令"></a>帮助指令</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">man [命令或配置文件]  <span class="comment"># 功能描述，获得帮助信息</span></span><br><span class="line">help 命令  <span class="comment"># 共能描述：获得shell内置命令的帮助信息</span></span><br></pre></td></tr></table></figure>
 
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/21/Mysq%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80(%E5%9F%BA%E7%A1%80%E6%9F%A5%E8%AF%A2)/" itemprop="url">
-              
-                <span itemprop="name">Mysql基础查询</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-21T21:11:16+08:00"
-              content="2020-06-21" >
-          06-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
+<hr>
+<h2 id="文件目录指令"><a href="#文件目录指令" class="headerlink" title="文件目录指令"></a>文件目录指令</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">pwd  <span class="comment"># 显示当前工作目录的绝对路径</span></span><br><span class="line">ls -[a l]  <span class="comment"># -a：显示当前目录所有的文件和目录，包括隐藏文件；-l：以列表的方式显示信息</span></span><br><span class="line">cd 路径  <span class="comment"># 切换到指定的路径</span></span><br><span class="line">cd ~或者cd :  <span class="comment"># 回到家目录</span></span><br><span class="line">cd ..  <span class="comment"># 回到当前路径的上一级目录</span></span><br><span class="line">mkdir [-p] 要创建的目录  <span class="comment"># -p表示要创建多级目录</span></span><br><span class="line">rmdir 空目录  <span class="comment"># 删除空目录</span></span><br><span class="line">rm -rf 非空目录或文件  <span class="comment"># 删除非空目录或文件，-r表示递归删除，-f强制删除不提示</span></span><br><span class="line">touch 文件名称.后缀名  <span class="comment"># 创建文件</span></span><br><span class="line">[\]cp [-r] 文件 目标路径  <span class="comment"># 拷贝文件到指定目录，\表示强制覆盖，-r表示递归复制</span></span><br><span class="line">scp -r $pdir/$fname $user@hadoop$host:$pdir/$fname  <span class="comment"># scp（secure copy）安全拷贝，可以实现服务器与服务器之间的数据拷贝。（from server1 to server2）</span></span><br><span class="line"><span class="comment"># 命令 递归 要拷贝的文件路径/名称 目的用户@主机:目的路径/名称</span></span><br><span class="line">rsync -rvl $pdir/$fname $user@hadoop$host:$pdir/$fname  <span class="comment"># rsync主要用于备份和镜像。具有速度快、避免复制相同内容和支持符号链接的优点（参数详情见下面表格）</span></span><br><span class="line"><span class="comment"># 命令 选项参数 要拷贝的文件路径/名称 目的用户@主机:目的路径/名称</span></span><br><span class="line">mv 文件 目标路径 <span class="comment"># 移动文件与目录</span></span><br><span class="line">mv 旧文件名 新文件名  <span class="comment"># 文件重命名</span></span><br><span class="line">cat [-n] 文件 [| more] <span class="comment"># 查看文件内容（只能查看不能修改），-n表示显示行号，more表示分页显示（用空格换页）</span></span><br><span class="line">tac 文件名  <span class="comment"># 从文件最后一行显示信息，与cat相反</span></span><br><span class="line">nl 文件名  <span class="comment"># 查看文件内容，默认显示行号</span></span><br><span class="line">more 文件名  <span class="comment"># 查看文件内容（详情见下面表格）</span></span><br><span class="line">less 文件名  <span class="comment"># 查看文件内容（详情见下面表格）</span></span><br></pre></td></tr></table></figure>
+<p><code>rsync</code>参数含义：</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-r</td>
+<td align="center">递归</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示复制过程</td>
+</tr>
+<tr>
+<td align="center">-l</td>
+<td align="center">拷贝符号链接</td>
+</tr>
+</tbody></table>
+<p><code>more</code>指令</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">空格键</td>
+<td align="center">向下换一页</td>
+</tr>
+<tr>
+<td align="center">Enter</td>
+<td align="center">向下翻一行</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td align="center">立刻离开more，不再显示该文件内容</td>
+</tr>
+<tr>
+<td align="center">Ctrl + f</td>
+<td align="center">向下滚动一屏</td>
+</tr>
+<tr>
+<td align="center">Ctrl + b</td>
+<td align="center">返回上一屏</td>
+</tr>
+<tr>
+<td align="center">=</td>
+<td align="center">输出当前的行号</td>
+</tr>
+<tr>
+<td align="center">:f</td>
+<td align="center">输出文件名和当前的行号</td>
+</tr>
+</tbody></table>
+<p><code>less</code>指令：</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">功能说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">空格键</td>
+<td align="center">向下换一页</td>
+</tr>
+<tr>
+<td align="center">Enter</td>
+<td align="center">向下翻一行</td>
+</tr>
+<tr>
+<td align="center">[pagedown]</td>
+<td align="center">向下翻动一页</td>
+</tr>
+<tr>
+<td align="center">[pageup]</td>
+<td align="center">向上翻动一页</td>
+</tr>
+<tr>
+<td align="center">/字串</td>
+<td align="center">向下搜寻[字串]的共能；n：向下查找，N：向上查找</td>
+</tr>
+<tr>
+<td align="center">?字串</td>
+<td align="center">向上搜寻[字串]的共能；n：向上查找，N：向下查找</td>
+</tr>
+<tr>
+<td align="center">q</td>
+<td align="center">离开less</td>
+</tr>
+</tbody></table>
+<p><font color="red">注意：less指令在显示文件内容时，并不是一次将整个文件加载之后才显示，而是根据需要显示加载内容，对于显示大型文件具有较高的效率。</font><br>&#8195;&#8195;补充<code>xsync</code>脚本，它的作用是：循环复制文件到所有节点的相同目录下。具体脚本如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#1 获取输入参数个数，如果没有参数，直接退出</span></span><br><span class="line">pcount=$<span class="comment">#</span></span><br><span class="line"><span class="keyword">if</span>((pcount==<span class="number">0</span>)); then</span><br><span class="line">echo no args;</span><br><span class="line">exit;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 获取文件名称</span></span><br><span class="line">p1=$<span class="number">1</span></span><br><span class="line">fname=`basename $p1`</span><br><span class="line">echo fname=$fname</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 获取上级目录到绝对路径</span></span><br><span class="line">pdir=`cd -P $(dirname $p1); pwd`</span><br><span class="line">echo pdir=$pdir</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 获取当前用户名称</span></span><br><span class="line">user=`whoami`</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 循环</span></span><br><span class="line"><span class="keyword">for</span>((host=<span class="number">103</span>; host&lt;<span class="number">105</span>; host++)); do</span><br><span class="line">        echo ------------------- hadoop$host --------------</span><br><span class="line">        rsync -rvl $pdir/$fname $user@hadoop$host:$pdir</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<p>&#8195;&#8195;<code>cat</code>进阶使用：显示文件的1000行到3000行</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat filename | tail -n + <span class="number">1000</span> | head -n <span class="number">2000</span></span><br><span class="line">cat filename | head -n <span class="number">3000</span> | tail -n +<span class="number">1000</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>head -n 1000：显示前1000行<br>tail -n 1000：显示后1000行<br>tail -n + 1000：从第1000行开始显示，显示1000行以后的内容</p>
+</blockquote>
+<p>&#8195;&#8195;如果使用<code>sed</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n <span class="string">'1000, 3000p'</span> filename</span><br></pre></td></tr></table></figure>
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/" itemprop="url">
-              
-                <span itemprop="name">HDFS高可用(HA)理论概述</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-06-19T15:39:00+08:00"
-              content="2020-06-19" >
-          06-19
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/04/11/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E8%A8%80(%E5%B8%B8%E8%A7%81%E5%87%BD%E6%95%B0)/" itemprop="url">
-              
-                <span itemprop="name">Mysql常见函数</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-04-11T15:44:00+08:00"
-              content="2020-04-11" >
-          04-11
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/03/27/Xsell%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8/" itemprop="url">
-              
-                <span itemprop="name">Xshell命令大全</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-03-27T20:00:00+08:00"
-              content="2020-03-27" >
-          03-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/03/24/hadoop%E5%AE%8C%E5%85%A8%E5%88%86%E5%B8%83%E5%BC%8F%E6%90%AD%E5%BB%BA/" itemprop="url">
-              
-                <span itemprop="name">hadoop完全分布式搭建</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-03-24T20:42:00+08:00"
-              content="2020-03-24" >
-          03-24
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/02/23/git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE/" itemprop="url">
-              
-                <span itemprop="name">git的安装与配置</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-02-23T15:46:00+08:00"
-              content="2020-02-23" >
-          02-23
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2020/02/22/%E5%9F%BA%E4%BA%8Ehexo%E3%80%81github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" itemprop="url">
-              
-                <span itemprop="name">基于hexo、github搭建个人博客</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2020-02-22T14:45:00+08:00"
-              content="2020-02-22" >
-          02-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>假装有人支持！</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>Donate</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.jpg" alt="YunTang1997 WeChat Pay"/>
+        <p>WeChat Pay</p>
+      </div>
+    
+
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/alipay.jpg" alt="YunTang1997 Alipay"/>
+        <p>Alipay</p>
+      </div>
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+      <div>
+        <ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者：</strong>
+    YunTang1997
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Linux常用命令及重要文件">https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>
+    本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/" rel="external nofollow" target="_blank">CC BY-NC-SA 3.0</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+
+      </div>
+    
+
+    
+      <div>
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      </div>
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/06/21/Mysql%E6%9F%A5%E8%AF%A2%E8%AF%AD%E5%8F%A5(%E6%8E%92%E5%BA%8F%E6%9F%A5%E8%AF%A2)/" rel="next" title="Mysql排序查询">
+                <i class="fa fa-chevron-left"></i> Mysql排序查询
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+        <!-- JiaThis Button BEGIN -->
+<div class="jiathis_style">
+  <a class="jiathis_button_tsina"></a>
+  <a class="jiathis_button_tqq"></a>
+  <a class="jiathis_button_weixin"></a>
+  <a class="jiathis_button_cqq"></a>
+  <a class="jiathis_button_douban"></a>
+  <a class="jiathis_button_renren"></a>
+  <a class="jiathis_button_qzone"></a>
+  <a class="jiathis_button_kaixin001"></a>
+  <a class="jiathis_button_copy"></a>
+  <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+  <a class="jiathis_counter_style"></a>
+</div>
+<script type="text/javascript" >
+  var jiathis_config={
+    hideMore:false
+  }
+</script>
+<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js" charset="utf-8"></script>
+<!-- JiaThis Button END -->
+
+      
+    </div>
+  </div>
 
 
           </div>
@@ -723,6 +787,12 @@
 
 
           
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC81MDU0Mi8yNzAyNQ=="></div>
+    
+  </div>
+
 
         </div>
         
@@ -743,8 +813,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="/images/avatar.jpg"
@@ -890,6 +969,22 @@
       </section>
 
       
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开机、重启和用户登录"><span class="nav-number">1.</span> <span class="nav-text">开机、重启和用户登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户注销"><span class="nav-number">2.</span> <span class="nav-text">用户注销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">3.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组管理"><span class="nav-number">4.</span> <span class="nav-text">用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户和组的相关文件"><span class="nav-number">5.</span> <span class="nav-text">用户和组的相关文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定运行级别"><span class="nav-number">6.</span> <span class="nav-text">指定运行级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">6.1.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助指令"><span class="nav-number">7.</span> <span class="nav-text">帮助指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录指令"><span class="nav-number">8.</span> <span class="nav-text">文件目录指令</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
 
       
 
@@ -1030,11 +1125,9 @@
   
 
   
-  
-    <script type="text/javascript" id="motion.page.archive">
-      $('.archive-year').velocity('transition.slideLeftIn');
-    </script>
-  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
 
 
   
@@ -1064,6 +1157,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 
