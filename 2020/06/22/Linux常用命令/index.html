@@ -103,14 +103,14 @@
 
 
 
-<meta name="description" content="开机、重启和用户登录 用户注销 用户管理 用户组管理 用户和组的相关文件 指定运行级别 应用   帮助指令 文件目录指令">
+<meta name="description" content="开机、重启和用户登录 用户注销 用户管理 用户组管理 用户和组的相关文件 指定运行级别 应用   帮助指令 文件目录指令 日期时间指令 搜索查找指令 find locate grep   压缩和解压指令 gizp gunzip zip unzip tar">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux常用命令及重要文件">
+<meta property="og:title" content="Linux常用命令">
 <meta property="og:url" content="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="YunTang1997の博客">
-<meta property="og:description" content="开机、重启和用户登录 用户注销 用户管理 用户组管理 用户和组的相关文件 指定运行级别 应用   帮助指令 文件目录指令">
+<meta property="og:description" content="开机、重启和用户登录 用户注销 用户管理 用户组管理 用户和组的相关文件 指定运行级别 应用   帮助指令 文件目录指令 日期时间指令 搜索查找指令 find locate grep   压缩和解压指令 gizp gunzip zip unzip tar">
 <meta property="article:published_time" content="2020-06-22T08:30:00.000Z">
-<meta property="article:modified_time" content="2020-06-22T14:26:49.854Z">
+<meta property="article:modified_time" content="2020-06-22T08:30:00.000Z">
 <meta property="article:author" content="YunTang1997">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -148,7 +148,7 @@
 
 
 
-  <title>Linux常用命令及重要文件 | YunTang1997の博客</title>
+  <title>Linux常用命令 | YunTang1997の博客</title>
   
 
 
@@ -349,7 +349,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux常用命令及重要文件</h1>
+          <h1 class="post-title" itemprop="name headline">Linux常用命令</h1>
         
 
         <div class="post-meta">
@@ -367,7 +367,19 @@
             
 
             
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2020-06-22T16:30:00+08:00">
+                2020-06-22
+              </time>
             
           </span>
 
@@ -401,7 +413,7 @@
 
           
           
-             <span id="/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="leancloud_visitors" data-flag-title="Linux常用命令及重要文件">
+             <span id="/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="leancloud_visitors" data-flag-title="Linux常用命令">
                <span class="post-meta-divider">|</span>
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -424,8 +436,6 @@
             <div class="post-wordcount">
               
                 
-                  <span class="post-meta-divider">|</span>
-                
                 <span class="post-meta-item-icon">
                   <i class="fa fa-file-word-o"></i>
                 </span>
@@ -433,7 +443,7 @@
                   <span class="post-meta-item-text">字数统计</span>
                 
                 <span title="字数统计">
-                  1.8k
+                  2.9k 字
                 </span>
               
 
@@ -449,7 +459,7 @@
                   <span class="post-meta-item-text">阅读时长</span>
                 
                 <span title="阅读时长">
-                  6
+                  11 分钟
                 </span>
               
             </div>
@@ -484,28 +494,43 @@
 </li>
 <li><a href="#帮助指令">帮助指令</a></li>
 <li><a href="#文件目录指令">文件目录指令</a></li>
+<li><a href="#日期时间指令">日期时间指令</a></li>
+<li><a href="#搜索查找指令">搜索查找指令</a><ul>
+<li><a href="#find">find</a></li>
+<li><a href="#locate">locate</a></li>
+<li><a href="#grep">grep</a></li>
+</ul>
+</li>
+<li><a href="#压缩和解压指令">压缩和解压指令</a><ul>
+<li><a href="#gizp">gizp</a></li>
+<li><a href="#gunzip">gunzip</a></li>
+<li><a href="#zip">zip</a></li>
+<li><a href="#unzip">unzip</a></li>
+<li><a href="#tar">tar</a></li>
+</ul>
+</li>
 </ul>
 <!-- /TOC -->
 <a id="more"></a>
 
-<h2 id="开机、重启和用户登录"><a href="#开机、重启和用户登录" class="headerlink" title="开机、重启和用户登录"></a>开机、重启和用户登录</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">shutdwon -h now  <span class="comment"># 立刻关机</span></span><br><span class="line">shutdwon -h <span class="number">1</span>  <span class="comment"># 1分钟以后关机</span></span><br><span class="line">shutdwon -r now  <span class="comment"># 立刻重启计算机</span></span><br><span class="line">halt  <span class="comment"># 立刻关机，同1</span></span><br><span class="line">reboot  <span class="comment"># 立刻重启，同3</span></span><br><span class="line">sync  <span class="comment"># 把内存的数据同步到磁盘</span></span><br></pre></td></tr></table></figure>
+<h2 id="开机、重启和用户登录"><a href="#开机、重启和用户登录" class="headerlink" title="开机、重启和用户登录"></a>开机、重启和用户登录</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">shutdwon -h now  <span class="hljs-comment"># 立刻关机</span><br>shutdwon -h <span class="hljs-number">1</span>  <span class="hljs-comment"># 1分钟以后关机</span><br>shutdwon -r now  <span class="hljs-comment"># 立刻重启计算机</span><br>halt  <span class="hljs-comment"># 立刻关机，同1</span><br>reboot  <span class="hljs-comment"># 立刻重启，同3</span><br>sync  <span class="hljs-comment"># 把内存的数据同步到磁盘</span><br></code></pre></td></tr></table></figure>
 <p>&#8195;&#8195;<font color="red">注意：不管是重启系统还是关闭系统，首先要运行sync命令，把内存中的数据写到磁盘中，防止数据丢失。</font></p>
 <hr>
-<h2 id="用户注销"><a href="#用户注销" class="headerlink" title="用户注销"></a>用户注销</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logout  <span class="comment"># 注意该命令在图形运行界面无效</span></span><br></pre></td></tr></table></figure>
+<h2 id="用户注销"><a href="#用户注销" class="headerlink" title="用户注销"></a>用户注销</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">logout  <span class="hljs-comment"># 注意该命令在图形运行界面无效</span><br></code></pre></td></tr></table></figure>
 <hr>
-<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">useradd [选项] 用户名  <span class="comment"># 默认家里目录路径为/home/用户名</span></span><br><span class="line">useradd -d 路径 用户名  <span class="comment"># 为创建用户名并指定家目录路径</span></span><br><span class="line">passwd 用户名  <span class="comment"># 为该用户名添加密码</span></span><br><span class="line">userdel 用户名  <span class="comment"># 删除用户名并且保留该用户的家目录</span></span><br><span class="line">userdel -r 用户名  <span class="comment"># 删除用户名以及该用户的家目录</span></span><br><span class="line">id 用户名  <span class="comment"># 查看用户信息</span></span><br><span class="line">su - 用户名  <span class="comment"># 切换用户名，输入exit返回原用户</span></span><br></pre></td></tr></table></figure>
+<h2 id="用户管理"><a href="#用户管理" class="headerlink" title="用户管理"></a>用户管理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">useradd [选项] 用户名  <span class="hljs-comment"># 默认家里目录路径为/home/用户名</span><br>useradd -d 路径 用户名  <span class="hljs-comment"># 为创建用户名并指定家目录路径</span><br>passwd 用户名  <span class="hljs-comment"># 为该用户名添加密码</span><br>userdel 用户名  <span class="hljs-comment"># 删除用户名并且保留该用户的家目录</span><br>userdel -r 用户名  <span class="hljs-comment"># 删除用户名以及该用户的家目录</span><br>id 用户名  <span class="hljs-comment"># 查看用户信息</span><br>su - 用户名  <span class="hljs-comment"># 切换用户名，输入exit返回原用户</span><br></code></pre></td></tr></table></figure>
 <p><font color="red">&#8195;&#8195;删除用户时，一般会保留家目录。</font></p>
 <hr>
 <h2 id="用户组管理"><a href="#用户组管理" class="headerlink" title="用户组管理"></a>用户组管理</h2><blockquote>
 <p>组，类似于角色，系统可以对有共性的多个用户进行管理。</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">groupadd 组名  <span class="comment"># 创建组</span></span><br><span class="line">groupdel 组名  <span class="comment"># 删除组</span></span><br><span class="line">uesradd -g 用户组 用户名  <span class="comment"># 创建用户名同时指定其所属组名（不加-g参数，默认用户名所属组名和用户名相同）</span></span><br><span class="line">uesrmod -g 用户组 用户名  <span class="comment"># 修改用户的组</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">groupadd 组名  <span class="hljs-comment"># 创建组</span><br>groupdel 组名  <span class="hljs-comment"># 删除组</span><br>uesradd -g 用户组 用户名  <span class="hljs-comment"># 创建用户名同时指定其所属组名（不加-g参数，默认用户名所属组名和用户名相同）</span><br>uesrmod -g 用户组 用户名  <span class="hljs-comment"># 修改用户的组</span><br></code></pre></td></tr></table></figure>
 <hr>
-<h2 id="用户和组的相关文件"><a href="#用户和组的相关文件" class="headerlink" title="用户和组的相关文件"></a>用户和组的相关文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/passwd</span><br></pre></td></tr></table></figure>
+<h2 id="用户和组的相关文件"><a href="#用户和组的相关文件" class="headerlink" title="用户和组的相关文件"></a>用户和组的相关文件</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">cd /etc/passwd<br></code></pre></td></tr></table></figure>
 <p>&#8195;&#8195;以上路径下的文件为<code>用户（user）</code>的配置文件，记录用户的各种信息。<br>&#8195;&#8195;其中每行的含义为：<br>&#8195;&#8195;<font color="red">用户名：口令：用户标识号：组标识号：注释性描述：主目录：登录Shell</font></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/shadow</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">cd /etc/shadow<br></code></pre></td></tr></table></figure>
 <p>&#8195;&#8195;以上路径下的文件为<code>口令</code>配置文件。<br>&#8195;&#8195;其中每行的含义为：<br>&#8195;&#8195;<font color="red">登录名：加密口令：最后一次修改时间：最小时间间隔：最大时间间隔：警告时间：不活动时间：失效时间：标志</font></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cd /etc/group</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">cd /etc/group<br></code></pre></td></tr></table></figure>
 <p>&#8195;&#8195;以上路径下的文件为<code>组（group）</code>的配置文件，记录Linux包含组的各种信息。<br>&#8195;&#8195;其中每行的含义为：<br>&#8195;&#8195;<font color="red">组名：口令：组标识号：组内用户表</font></p>
 <hr>
 <h2 id="指定运行级别"><a href="#指定运行级别" class="headerlink" title="指定运行级别"></a>指定运行级别</h2><ul>
@@ -518,7 +543,7 @@
 <li>6：系统重启</li>
 </ul>
 <p>&#8195;&#8195;常用运行级别为3和5。<br>&#8195;&#8195;要修改默认的运行级别可修改文件<code>/etc/inittab的id:5:initdefault:这一行中的数字。</code><br>&#8195;&#8195;切换运行级别命令行：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">init[<span class="number">0123456</span>]  <span class="comment"># 切换运行级别</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">init[<span class="hljs-number">0123456</span>]  <span class="hljs-comment"># 切换运行级别</span><br></code></pre></td></tr></table></figure>
 <h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>&#8195;&#8195;问：如果忘记了root密码，如何找回root密码？<br>&#8195;&#8195;答：进入<code>单用户模式</code>，然后修改root密码，因为进入单用户模式，root不需要密码就可以登陆。具体过程如下：</p>
 <ol>
 <li>开机<br></li>
@@ -533,10 +558,10 @@
 <li>单用户模式下利用<code>passwd</code>修改root密码<br></li>
 </ol>
 <hr>
-<h2 id="帮助指令"><a href="#帮助指令" class="headerlink" title="帮助指令"></a>帮助指令</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">man [命令或配置文件]  <span class="comment"># 功能描述，获得帮助信息</span></span><br><span class="line">help 命令  <span class="comment"># 共能描述：获得shell内置命令的帮助信息</span></span><br></pre></td></tr></table></figure>
+<h2 id="帮助指令"><a href="#帮助指令" class="headerlink" title="帮助指令"></a>帮助指令</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">man [命令或配置文件]  <span class="hljs-comment"># 功能描述，获得帮助信息</span><br>help 命令  <span class="hljs-comment"># 共能描述：获得shell内置命令的帮助信息</span><br></code></pre></td></tr></table></figure>
 
 <hr>
-<h2 id="文件目录指令"><a href="#文件目录指令" class="headerlink" title="文件目录指令"></a>文件目录指令</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">pwd  <span class="comment"># 显示当前工作目录的绝对路径</span></span><br><span class="line">ls -[a l]  <span class="comment"># -a：显示当前目录所有的文件和目录，包括隐藏文件；-l：以列表的方式显示信息</span></span><br><span class="line">cd 路径  <span class="comment"># 切换到指定的路径</span></span><br><span class="line">cd ~或者cd :  <span class="comment"># 回到家目录</span></span><br><span class="line">cd ..  <span class="comment"># 回到当前路径的上一级目录</span></span><br><span class="line">mkdir [-p] 要创建的目录  <span class="comment"># -p表示要创建多级目录</span></span><br><span class="line">rmdir 空目录  <span class="comment"># 删除空目录</span></span><br><span class="line">rm -rf 非空目录或文件  <span class="comment"># 删除非空目录或文件，-r表示递归删除，-f强制删除不提示</span></span><br><span class="line">touch 文件名称.后缀名  <span class="comment"># 创建文件</span></span><br><span class="line">[\]cp [-r] 文件 目标路径  <span class="comment"># 拷贝文件到指定目录，\表示强制覆盖，-r表示递归复制</span></span><br><span class="line">scp -r $pdir/$fname $user@hadoop$host:$pdir/$fname  <span class="comment"># scp（secure copy）安全拷贝，可以实现服务器与服务器之间的数据拷贝。（from server1 to server2）</span></span><br><span class="line"><span class="comment"># 命令 递归 要拷贝的文件路径/名称 目的用户@主机:目的路径/名称</span></span><br><span class="line">rsync -rvl $pdir/$fname $user@hadoop$host:$pdir/$fname  <span class="comment"># rsync主要用于备份和镜像。具有速度快、避免复制相同内容和支持符号链接的优点（参数详情见下面表格）</span></span><br><span class="line"><span class="comment"># 命令 选项参数 要拷贝的文件路径/名称 目的用户@主机:目的路径/名称</span></span><br><span class="line">mv 文件 目标路径 <span class="comment"># 移动文件与目录</span></span><br><span class="line">mv 旧文件名 新文件名  <span class="comment"># 文件重命名</span></span><br><span class="line">cat [-n] 文件 [| more] <span class="comment"># 查看文件内容（只能查看不能修改），-n表示显示行号，more表示分页显示（用空格换页）</span></span><br><span class="line">tac 文件名  <span class="comment"># 从文件最后一行显示信息，与cat相反</span></span><br><span class="line">nl 文件名  <span class="comment"># 查看文件内容，默认显示行号</span></span><br><span class="line">more 文件名  <span class="comment"># 查看文件内容（详情见下面表格）</span></span><br><span class="line">less 文件名  <span class="comment"># 查看文件内容（详情见下面表格）</span></span><br></pre></td></tr></table></figure>
+<h2 id="文件目录指令"><a href="#文件目录指令" class="headerlink" title="文件目录指令"></a>文件目录指令</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><code class="hljs python">pwd  <span class="hljs-comment"># 显示当前工作目录的绝对路径</span><br>ls -[a l]  <span class="hljs-comment"># -a：显示当前目录所有的文件和目录，包括隐藏文件；-l：以列表的方式显示信息</span><br>cd 路径  <span class="hljs-comment"># 切换到指定的路径</span><br>cd ~或者cd :  <span class="hljs-comment"># 回到家目录</span><br>cd ..  <span class="hljs-comment"># 回到当前路径的上一级目录</span><br>mkdir [-p] 要创建的目录  <span class="hljs-comment"># -p表示要创建多级目录</span><br>rmdir 空目录  <span class="hljs-comment"># 删除空目录</span><br>rm -rf 非空目录或文件  <span class="hljs-comment"># 删除非空目录或文件，-r表示递归删除，-f强制删除不提示</span><br>touch 文件名称.后缀名  <span class="hljs-comment"># 创建文件</span><br>[\]cp [-r] 文件 目标路径  <span class="hljs-comment"># 拷贝文件到指定目录，\表示强制覆盖，-r表示递归复制</span><br>scp -r $pdir/$fname $user@hadoop$host:$pdir/$fname  <span class="hljs-comment"># scp（secure copy）安全拷贝，可以实现服务器与服务器之间的数据拷贝。（from server1 to server2）</span><br><span class="hljs-comment"># 命令 递归 要拷贝的文件路径/名称 目的用户@主机:目的路径/名称</span><br>rsync -rvl $pdir/$fname $user@hadoop$host:$pdir/$fname  <span class="hljs-comment"># rsync主要用于备份和镜像。具有速度快、避免复制相同内容和支持符号链接的优点（参数详情见下面表格）</span><br><span class="hljs-comment"># 命令 选项参数 要拷贝的文件路径/名称 目的用户@主机:目的路径/名称</span><br>mv 文件 目标路径 <span class="hljs-comment"># 移动文件与目录</span><br>mv 旧文件名 新文件名  <span class="hljs-comment"># 文件重命名</span><br>cat [-n] 文件 [| more] <span class="hljs-comment"># 查看文件内容（只能查看不能修改），-n表示显示行号，more表示分页显示（用空格换页）</span><br>tac 文件名  <span class="hljs-comment"># 从文件最后一行显示信息，与cat相反</span><br>nl 文件名  <span class="hljs-comment"># 查看文件内容，默认显示行号</span><br>more 文件名  <span class="hljs-comment"># 查看文件内容（详情见下面表格）</span><br>less 文件名  <span class="hljs-comment"># 查看文件内容（详情见下面表格）</span><br>&gt;  <span class="hljs-comment"># 输出重定向</span><br>&gt;&gt;  <span class="hljs-comment"># 追加</span><br>ls -l &gt; 文件  <span class="hljs-comment"># 列表的内容写入文件中（覆盖写），文件不存在就创建文件，否则覆盖</span><br>ls -al &gt;&gt; 文件  <span class="hljs-comment"># 列表的内容追加到文件的末尾</span><br>cat 文件<span class="hljs-number">1</span> &gt; 文件<span class="hljs-number">2</span>  <span class="hljs-comment"># 将文件1的内容覆盖到文件2</span><br>echo  <span class="hljs-comment"># 输出内容到控制台</span><br>echo $PATH  <span class="hljs-comment"># 输出环境变量</span><br>echo 内容 &gt;&gt; 文件  <span class="hljs-comment"># 将内容追加到文件</span><br>head [-n] [行数] 文件  <span class="hljs-comment"># 默认显示文件前10行，利用参数可以指定输出前多少行</span><br>tail [-n] [行数] 文件  <span class="hljs-comment"># 默认显示文件后10行，利用参数可以指定输出后多少行</span><br>tail -n +行数 文件  <span class="hljs-comment"># 从规定的“行数”开始显示，显示后面的文件内容</span><br>tail -f 文件  <span class="hljs-comment"># 实时追踪文件的所有更新</span><br>ln  <span class="hljs-comment"># 软连接符号</span><br>ln -s [原文件或目录][软链接名]  <span class="hljs-comment"># 给原文件创建一个软链接（快捷方式）</span><br>rm -rf 软链接  <span class="hljs-comment"># 删除软链接（注意软链接后面不要跟/，否则报错“资源忙”）</span><br>history  <span class="hljs-comment"># 查看已执行过的历史命令，也可以执行历史命令</span><br>history n  <span class="hljs-comment"># 查看后n行历史指令</span><br>!n  <span class="hljs-comment"># 执行第n个历史指令</span><br></code></pre></td></tr></table></figure>
 <p><code>rsync</code>参数含义：</p>
 <table>
 <thead>
@@ -633,14 +658,148 @@
 </tr>
 </tbody></table>
 <p><font color="red">注意：less指令在显示文件内容时，并不是一次将整个文件加载之后才显示，而是根据需要显示加载内容，对于显示大型文件具有较高的效率。</font><br>&#8195;&#8195;补充<code>xsync</code>脚本，它的作用是：循环复制文件到所有节点的相同目录下。具体脚本如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/bin/bash</span></span><br><span class="line"><span class="comment">#1 获取输入参数个数，如果没有参数，直接退出</span></span><br><span class="line">pcount=$<span class="comment">#</span></span><br><span class="line"><span class="keyword">if</span>((pcount==<span class="number">0</span>)); then</span><br><span class="line">echo no args;</span><br><span class="line">exit;</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"><span class="comment">#2 获取文件名称</span></span><br><span class="line">p1=$<span class="number">1</span></span><br><span class="line">fname=`basename $p1`</span><br><span class="line">echo fname=$fname</span><br><span class="line"></span><br><span class="line"><span class="comment">#3 获取上级目录到绝对路径</span></span><br><span class="line">pdir=`cd -P $(dirname $p1); pwd`</span><br><span class="line">echo pdir=$pdir</span><br><span class="line"></span><br><span class="line"><span class="comment">#4 获取当前用户名称</span></span><br><span class="line">user=`whoami`</span><br><span class="line"></span><br><span class="line"><span class="comment">#5 循环</span></span><br><span class="line"><span class="keyword">for</span>((host=<span class="number">103</span>; host&lt;<span class="number">105</span>; host++)); do</span><br><span class="line">        echo ------------------- hadoop$host --------------</span><br><span class="line">        rsync -rvl $pdir/$fname $user@hadoop$host:$pdir</span><br><span class="line">done</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#!/bin/bash</span><br><span class="hljs-comment">#1 获取输入参数个数，如果没有参数，直接退出</span><br>pcount=$<span class="hljs-comment">#</span><br><span class="hljs-keyword">if</span>((pcount==<span class="hljs-number">0</span>)); then<br>echo no args;<br>exit;<br>fi<br><br><span class="hljs-comment">#2 获取文件名称</span><br>p1=$<span class="hljs-number">1</span><br>fname=`basename $p1`<br>echo fname=$fname<br><br><span class="hljs-comment">#3 获取上级目录到绝对路径</span><br>pdir=`cd -P $(dirname $p1); pwd`<br>echo pdir=$pdir<br><br><span class="hljs-comment">#4 获取当前用户名称</span><br>user=`whoami`<br><br><span class="hljs-comment">#5 循环</span><br><span class="hljs-keyword">for</span>((host=<span class="hljs-number">103</span>; host&lt;<span class="hljs-number">105</span>; host++)); do<br>        echo ------------------- hadoop$host --------------<br>        rsync -rvl $pdir/$fname $user@hadoop$host:$pdir<br>done<br></code></pre></td></tr></table></figure>
 <p>&#8195;&#8195;<code>cat</code>进阶使用：显示文件的1000行到3000行</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cat filename | tail -n + <span class="number">1000</span> | head -n <span class="number">2000</span></span><br><span class="line">cat filename | head -n <span class="number">3000</span> | tail -n +<span class="number">1000</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">cat filename | tail -n + <span class="hljs-number">1000</span> | head -n <span class="hljs-number">2000</span><br>cat filename | head -n <span class="hljs-number">3000</span> | tail -n +<span class="hljs-number">1000</span><br></code></pre></td></tr></table></figure>
 <blockquote>
 <p>head -n 1000：显示前1000行<br>tail -n 1000：显示后1000行<br>tail -n + 1000：从第1000行开始显示，显示1000行以后的内容</p>
 </blockquote>
 <p>&#8195;&#8195;如果使用<code>sed</code></p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed -n <span class="string">'1000, 3000p'</span> filename</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">sed -n <span class="hljs-string">'1000, 3000p'</span> filename<br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="日期时间指令"><a href="#日期时间指令" class="headerlink" title="日期时间指令"></a>日期时间指令</h2><table>
+<thead>
+<tr>
+<th align="center">基本语法</th>
+<th align="center">功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">date</td>
+<td align="center">显示当前时间</td>
+</tr>
+<tr>
+<td align="center">date “+%Y”</td>
+<td align="center">显示当前年份</td>
+</tr>
+<tr>
+<td align="center">date “+%m”</td>
+<td align="center">显示当前月份</td>
+</tr>
+<tr>
+<td align="center">date “+%d”</td>
+<td align="center">显示当前是哪一天</td>
+</tr>
+<tr>
+<td align="center"><code>date &quot;+%Y-%m-%d %H:%M:%S&quot;</code></td>
+<td align="center">显示年月日时分秒</td>
+</tr>
+<tr>
+<td align="center"><code>date -s 字符串时间</code></td>
+<td align="center">设置系统时间</td>
+</tr>
+<tr>
+<td align="center">cal</td>
+<td align="center">显示日历</td>
+</tr>
+<tr>
+<td align="center">cal 年份</td>
+<td align="center">显示所指年份的全部日历</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="搜索查找指令"><a href="#搜索查找指令" class="headerlink" title="搜索查找指令"></a>搜索查找指令</h2><h3 id="find"><a href="#find" class="headerlink" title="find"></a>find</h3><p>&#8195;&#8195;<code>从指定目录向下递归地遍历其各个子目录，将满足条件的文件或者目录显示在终端。</code></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">find [搜索范围] [选项] 文件名或文件用户或文件大小<br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;find命令常用选项：</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-name 文件名</td>
+<td align="center">按照指定的文件名查找文件</td>
+</tr>
+<tr>
+<td align="center">-user 文件用户</td>
+<td align="center">查找属于指定用户名的所有文件</td>
+</tr>
+<tr>
+<td align="center">-size +n[K, M, …]</td>
+<td align="center">按照指定的文件大小查找文件（+n：大于n，-n：小于n，n：等于n），注意单位要大写</td>
+</tr>
+</tbody></table>
+<p>&#8195;&#8195;注意：其中文件名、用户名支持<code>通配符</code>。</p>
+<hr>
+<h3 id="locate"><a href="#locate" class="headerlink" title="locate"></a>locate</h3><p>&#8195;&#8195;快速定位文件路径。locate指令利用事先建立的系统中所有文件名称及路径的locate数据库实现快速定位给定的文件。locate指令无需遍历整个文件系统，查询速度较快。为了保证查询结果的准确度，管理员必须定期更新locate时刻。<br>&#8195;&#8195;<font color="red">由于locate指令基于数据库进行查询，所以第一次运行前，必须使用<code>updatedb</code>指令创建locate数据库。</font></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">updatedb  <span class="hljs-comment"># 创建locate数据库</span><br>locate 文件名  <span class="hljs-comment"># 查找文件名</span><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h3><p>&#8195;&#8195;过滤查找，<code>管道符“|”</code>，表示将前一个命令的处理结果输出传递给后面的命令处理。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">grep [选项] 查找内容或源文件<br><span class="hljs-comment"># 举例</span><br>cat hello.txt | grep [选项] hello<br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;grep命令常用选项：</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="left">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-n</td>
+<td align="left">显示匹配行及行号</td>
+</tr>
+<tr>
+<td align="center">-i</td>
+<td align="left">忽略大小写</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="压缩和解压指令"><a href="#压缩和解压指令" class="headerlink" title="压缩和解压指令"></a>压缩和解压指令</h2><h3 id="gizp"><a href="#gizp" class="headerlink" title="gizp"></a>gizp</h3><p>&#8195;&#8195;压缩文件，只能将文件压缩为<code>*.gz</code>文件，且<code>不保留原文件</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">gzip 文件名<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="gunzip"><a href="#gunzip" class="headerlink" title="gunzip"></a>gunzip</h3><p>&#8195;&#8195;解压gz压缩文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">gunzip 文件名.gz<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="zip"><a href="#zip" class="headerlink" title="zip"></a>zip</h3><p>&#8195;&#8195;压缩文件或<code>目录</code>为<code>*.zip</code>文件，且保留<code>原文件</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">zip [-r] 文件名.zip 将要压缩的内容  <span class="hljs-comment"># -r表示递归压缩（压缩目录时使用）</span><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="unzip"><a href="#unzip" class="headerlink" title="unzip"></a>unzip</h3><p>&#8195;&#8195;解压zip文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">unzip [-d 目录] 文件名.zip  <span class="hljs-comment"># -d指定解压后文件的存放目录</span><br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h3><p>&#8195;&#8195;打包指令，最后打包的文件是<code>.tar.gz</code>文件。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">tar [选项] 文件名.tar.gz 打包内容<br><span class="hljs-comment"># 举例1：将当前目录下的a.txt和b.txt文件打包压缩成a.tar.gz文件</span><br>tar -zcvf a.tar.zg a.txt b.txt<br><span class="hljs-comment"># 举例2：将a.tar.zg解压当当前目录</span><br>tar -zxvf a.tar.gz<br><span class="hljs-comment"># 举例3：将a.tar.zg解压到/opt/目录</span><br>tar -zxvf a.tar.zg -C /opt/  <span class="hljs-comment"># 解压到指定目录，则该目录必须存在</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;tar指令常用选项：</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">-c</td>
+<td align="center">产生.tar打包文件</td>
+</tr>
+<tr>
+<td align="center">-v</td>
+<td align="center">显示详细信息</td>
+</tr>
+<tr>
+<td align="center">-f</td>
+<td align="center">指定压缩后的文件名</td>
+</tr>
+<tr>
+<td align="center">-z</td>
+<td align="center">打包同时压缩</td>
+</tr>
+<tr>
+<td align="center">-x</td>
+<td align="center">解包.tar文件</td>
+</tr>
+</tbody></table>
+
       
     </div>
     
@@ -689,7 +848,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Linux常用命令及重要文件">https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</a>
+    <a href="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="Linux常用命令">https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>
@@ -737,6 +896,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/23/Linux%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" rel="prev" title="Linux组管理和权限管理">
+                Linux组管理和权限管理 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -838,7 +1001,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/archives/">
-                <span class="site-state-item-count">10</span>
+                <span class="site-state-item-count">16</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -978,7 +1141,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开机、重启和用户登录"><span class="nav-number">1.</span> <span class="nav-text">开机、重启和用户登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户注销"><span class="nav-number">2.</span> <span class="nav-text">用户注销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">3.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组管理"><span class="nav-number">4.</span> <span class="nav-text">用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户和组的相关文件"><span class="nav-number">5.</span> <span class="nav-text">用户和组的相关文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定运行级别"><span class="nav-number">6.</span> <span class="nav-text">指定运行级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">6.1.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助指令"><span class="nav-number">7.</span> <span class="nav-text">帮助指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录指令"><span class="nav-number">8.</span> <span class="nav-text">文件目录指令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#开机、重启和用户登录"><span class="nav-number">1.</span> <span class="nav-text">开机、重启和用户登录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户注销"><span class="nav-number">2.</span> <span class="nav-text">用户注销</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户管理"><span class="nav-number">3.</span> <span class="nav-text">用户管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户组管理"><span class="nav-number">4.</span> <span class="nav-text">用户组管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#用户和组的相关文件"><span class="nav-number">5.</span> <span class="nav-text">用户和组的相关文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#指定运行级别"><span class="nav-number">6.</span> <span class="nav-text">指定运行级别</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#应用"><span class="nav-number">6.1.</span> <span class="nav-text">应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#帮助指令"><span class="nav-number">7.</span> <span class="nav-text">帮助指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#文件目录指令"><span class="nav-number">8.</span> <span class="nav-text">文件目录指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#日期时间指令"><span class="nav-number">9.</span> <span class="nav-text">日期时间指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#搜索查找指令"><span class="nav-number">10.</span> <span class="nav-text">搜索查找指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#find"><span class="nav-number">10.1.</span> <span class="nav-text">find</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#locate"><span class="nav-number">10.2.</span> <span class="nav-text">locate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#grep"><span class="nav-number">10.3.</span> <span class="nav-text">grep</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#压缩和解压指令"><span class="nav-number">11.</span> <span class="nav-text">压缩和解压指令</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#gizp"><span class="nav-number">11.1.</span> <span class="nav-text">gizp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gunzip"><span class="nav-number">11.2.</span> <span class="nav-text">gunzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#zip"><span class="nav-number">11.3.</span> <span class="nav-text">zip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#unzip"><span class="nav-number">11.4.</span> <span class="nav-text">unzip</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tar"><span class="nav-number">11.5.</span> <span class="nav-text">tar</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -1000,7 +1163,7 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
+  &copy;  2019 - 
   <span itemprop="copyrightYear">2020</span>
   <span class="with-love">
     <i class="fa fa-long-arrow-right"></i>
@@ -1026,7 +1189,7 @@
 
 <div class="theme-info">
   <div class="powered-by"></div>
-  <span class="post-count">博客全站共10k字</span>
+  <span class="post-count">博客全站共15.9k字</span>
 </div>
 
         
@@ -1037,7 +1200,7 @@
     <span class="site-uv">
       <i class="fa fa-user"></i> 访问人数
       <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
-      
+      人
     </span>
   
 
@@ -1617,5 +1780,7 @@
 
   
 
+  <script type="text/javascript" src="/lib/clipboard/clipboard.js"></script>
+<script type="text/javascript" src="/js/src/custom.js"></script>
 <script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"log":false});</script></body>
 </html>
