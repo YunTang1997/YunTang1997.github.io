@@ -143,7 +143,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">19</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">20</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -311,7 +311,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 方式一（随表一起建索引）</span><br><span class="hljs-comment"># 注意：使用AUTO_INCREMENT关键字的列必须有索引(只要有索引就行)。</span><br>CREATE TABLE customer (<br>    id INT(<span class="hljs-number">10</span>) UNSIGNED AUTO_INCREMENT, customer_no VARCHAR(<span class="hljs-number">200</span>), customer_name VARCHAR(<span class="hljs-number">200</span>),<br>    PRIMARY KEY(id) <br>);<br><span class="hljs-comment"># 方式二（单独建主键索引）</span><br>ALTER TABLE customer ADD PRIMARY KEY customer(customer_no);<br><br><span class="hljs-comment"># 删除建主键索引</span><br>ALTER TABLE customer DROP PRIMARY KEY;<br><br><span class="hljs-comment"># 修改建主键索引</span><br><span class="hljs-comment"># 必须先删除掉（DROP）原索引，再新建（ADD）索引</span><br></code></pre></td></tr></table></figure>
 <hr>
 <h3 id="单值索引"><a href="#单值索引" class="headerlink" title="单值索引"></a>单值索引</h3><p>&#8195;&#8195;即一个索引只包含单个列，一个表可以有多个单列索引。<br>&#8195;&#8195;语法：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 方式一（随表一起建索引）</span><br><span class="hljs-comment"># 随表一起建立的索引，索引名同列名（customer_name）</span><br>CREATE TABLE customer (<br>    id INT(<span class="hljs-number">10</span>) UNSIGNED AUTO_INCREMENT, customer_no VARCHAR(<span class="hljs-number">200</span>), customer_name VARCHAR(<span class="hljs-number">200</span>),<br>    KEY (customer_name)  <br>);<br><span class="hljs-comment"># 方式二（单独建索引）</span><br>CREATE INDEX idx_customer_name ON customer(customer_name); <br><br><span class="hljs-comment"># 删除索引</span><br>DROP INDEX idx_customer_name ON<br>customer;<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 方式一（随表一起建索引）</span><br><span class="hljs-comment"># 随表一起建立的索引，索引名同列名（customer_name）</span><br>CREATE TABLE customer (<br>    id INT(<span class="hljs-number">10</span>) UNSIGNED AUTO_INCREMENT, customer_no VARCHAR(<span class="hljs-number">200</span>), customer_name VARCHAR(<span class="hljs-number">200</span>),<br>    KEY (customer_name)  <br>);<br><span class="hljs-comment"># 方式二（单独建索引）</span><br>CREATE INDEX idx_customer_name ON customer(customer_name); <br><br><span class="hljs-comment"># 删除索引</span><br>DROP INDEX idx_customer_name ON customer;<br></code></pre></td></tr></table></figure>
 <hr>
 <h3 id="唯一索引"><a href="#唯一索引" class="headerlink" title="唯一索引"></a>唯一索引</h3><p>&#8195;&#8195;索引列的值必须唯一，但允许有空值。<br>&#8195;&#8195;语法：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 建立唯一索引时必须保证所有的值是唯一的（除了null），若有重复数据，会报错。</span><br><span class="hljs-comment"># 方式一（随表一起建索引）</span><br>CREATE TABLE customer (<br>    id INT(<span class="hljs-number">10</span>) UNSIGNED  AUTO_INCREMENT, customer_no VARCHAR(<span class="hljs-number">200</span>),customer_name VARCHAR(<span class="hljs-number">200</span>),<br>    UNIQUE (customer_no)<br>);<br><span class="hljs-comment"># 方式二（单独建索引）</span><br>CREATE UNIQUE INDEX idx_customer_no ON customer(customer_no); <br><br><span class="hljs-comment"># 删除索引</span><br>DROP INDEX idx_customer_no ON customer;<br></code></pre></td></tr></table></figure>
@@ -447,7 +447,10 @@
     <a href="/2020/06/24/Linux%20RPM%E5%92%8CYUM/" rel="prev" title="Linux RPM和YUM">
       <i class="fa fa-chevron-left"></i> Linux RPM和YUM
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/06/30/Mysql_explain/" rel="next" title="Mysql explain">
+      Mysql explain <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -527,7 +530,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">19</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -616,13 +619,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">42k</span>
+    <span title="站点总字数">46k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">38 分钟</span>
+    <span title="站点阅读时长">42 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

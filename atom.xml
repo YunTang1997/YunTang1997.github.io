@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuntang1997.github.io/"/>
-  <updated>2020-06-28T01:09:00.000Z</updated>
+  <updated>2020-06-30T12:18:00.000Z</updated>
   <id>https://yuntang1997.github.io/</id>
   
   <author>
@@ -15,6 +15,83 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql explain</title>
+    <link href="https://yuntang1997.github.io/2020/06/30/Mysql_explain/"/>
+    <id>https://yuntang1997.github.io/2020/06/30/Mysql_explain/</id>
+    <published>2020-06-30T12:18:00.000Z</published>
+    <updated>2020-06-30T12:18:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#explain简介&quot;&gt;explain简介&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#定义&quot;&gt;定义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#作用&quot;&gt;作用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#使用语法&quot;&gt;使用语法&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#id重要&quot;&gt;id（重要）&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#含义&quot;&gt;含义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#id相同&quot;&gt;id相同&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#id不同&quot;&gt;id不同&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#id有相同的也有不同的&quot;&gt;id有相同的，也有不同的&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#select_type&quot;&gt;select_type&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#含义-1&quot;&gt;含义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#simple&quot;&gt;simple&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#primary&quot;&gt;primary&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#derived&quot;&gt;derived&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#subquery&quot;&gt;subquery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#dependent-subquery&quot;&gt;dependent subquery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#uncacheable-subqurey&quot;&gt;uncacheable subqurey&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#unionunion-result&quot;&gt;union、union result&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#table&quot;&gt;table&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#type重要&quot;&gt;type（重要）&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#含义-2&quot;&gt;含义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#system&quot;&gt;system&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#const&quot;&gt;const&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#eq_ref&quot;&gt;eq_ref&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#ref&quot;&gt;ref&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#range&quot;&gt;range&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#allindex&quot;&gt;all、index&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#possible_keys&quot;&gt;possible_keys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#key重要&quot;&gt;key（重要）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#key_len&quot;&gt;key_len&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#ref-1&quot;&gt;ref&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#rows重要&quot;&gt;rows（重要）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#extra重要&quot;&gt;extra（重要）&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#含义-3&quot;&gt;含义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#using-filesort重要&quot;&gt;Using filesort（重要）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#using-temporary重要&quot;&gt;Using temporary（重要）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#using-index重要&quot;&gt;Using index（重要）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#using-where&quot;&gt;Using where&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#using-join-buffer&quot;&gt;Using join buffer&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#impossible-where&quot;&gt;Impossible where&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#select-tables-optimized-away&quot;&gt;Select tables optimized away&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#distinct&quot;&gt;Distinct&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>Mysql索引</title>

@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yuntang1997.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="explain简介 定义 作用 使用语法   id（重要） 含义 id相同 id不同 id有相同的，也有不同的   select_type 含义 simple primary derived subquery dependent subquery uncacheable subqurey union、union result   table type（重要） 含义 system const">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql explain">
+<meta property="og:url" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/index.html">
+<meta property="og:site_name" content="YunTang1997の博客">
+<meta property="og:description" content="explain简介 定义 作用 使用语法   id（重要） 含义 id相同 id不同 id有相同的，也有不同的   select_type 含义 simple primary derived subquery dependent subquery uncacheable subqurey union、union result   table type（重要） 含义 system const">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/id%E7%9B%B8%E5%90%8C.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/id%E4%B8%8D%E5%90%8C.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/%E5%90%8C%E6%97%B6%E5%AD%98%E5%9C%A8.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/select_type%E6%9C%89%E5%93%AA%E4%BA%9B.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/simple.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/primary.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/derived.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/subquery.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/dependent_subquery.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/uncacheable_subqurey.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/union.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/type%E6%9C%89%E5%93%AA%E4%BA%9B.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/const.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/eq_ref.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/ref.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/range1.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/range2.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/index.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/key.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/key_len.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/%E8%AE%A1%E7%AE%97.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/%E6%98%AF%E5%90%A6%E5%85%85%E5%88%86%E5%88%A9%E7%94%A8.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/ref_new.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/using_filesort%E5%89%8D.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/using_filesort%E5%90%8E.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/using_temporary%E5%89%8D.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/using_temporary%E5%90%8E.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/impossible_where.png">
+<meta property="article:published_time" content="2020-06-30T12:18:00.000Z">
+<meta property="article:modified_time" content="2020-06-30T12:18:00.000Z">
+<meta property="article:author" content="YunTang1997">
+<meta property="article:tag" content="Mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yuntang1997.github.io/2020/06/30/Mysql_explain/%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF.png">
+
+<link rel="canonical" href="https://yuntang1997.github.io/2020/06/30/Mysql_explain/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mysql explain | YunTang1997の博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="YunTang1997の博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YunTang1997の博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学无止尽，慢慢进步</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">20</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YunTang1997" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/06/30/Mysql_explain/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql explain
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-06-30 20:18:00" itemprop="dateCreated datePublished" datetime="2020-06-30T20:18:00+08:00">2020-06-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <!-- TOC -->
+
+<ul>
+<li><a href="#explain简介">explain简介</a><ul>
+<li><a href="#定义">定义</a></li>
+<li><a href="#作用">作用</a></li>
+<li><a href="#使用语法">使用语法</a></li>
+</ul>
+</li>
+<li><a href="#id重要">id（重要）</a><ul>
+<li><a href="#含义">含义</a></li>
+<li><a href="#id相同">id相同</a></li>
+<li><a href="#id不同">id不同</a></li>
+<li><a href="#id有相同的也有不同的">id有相同的，也有不同的</a></li>
+</ul>
+</li>
+<li><a href="#select_type">select_type</a><ul>
+<li><a href="#含义-1">含义</a></li>
+<li><a href="#simple">simple</a></li>
+<li><a href="#primary">primary</a></li>
+<li><a href="#derived">derived</a></li>
+<li><a href="#subquery">subquery</a></li>
+<li><a href="#dependent-subquery">dependent subquery</a></li>
+<li><a href="#uncacheable-subqurey">uncacheable subqurey</a></li>
+<li><a href="#unionunion-result">union、union result</a></li>
+</ul>
+</li>
+<li><a href="#table">table</a></li>
+<li><a href="#type重要">type（重要）</a><ul>
+<li><a href="#含义-2">含义</a></li>
+<li><a href="#system">system</a></li>
+<li><a href="#const">const</a></li>
+<li><a href="#eq_ref">eq_ref</a></li>
+<li><a href="#ref">ref</a></li>
+<li><a href="#range">range</a></li>
+<li><a href="#allindex">all、index</a></li>
+</ul>
+</li>
+<li><a href="#possible_keys">possible_keys</a></li>
+<li><a href="#key重要">key（重要）</a></li>
+<li><a href="#key_len">key_len</a></li>
+<li><a href="#ref-1">ref</a></li>
+<li><a href="#rows重要">rows（重要）</a></li>
+<li><a href="#extra重要">extra（重要）</a><ul>
+<li><a href="#含义-3">含义</a></li>
+<li><a href="#using-filesort重要">Using filesort（重要）</a></li>
+<li><a href="#using-temporary重要">Using temporary（重要）</a></li>
+<li><a href="#using-index重要">Using index（重要）</a></li>
+<li><a href="#using-where">Using where</a></li>
+<li><a href="#using-join-buffer">Using join buffer</a></li>
+<li><a href="#impossible-where">Impossible where</a></li>
+<li><a href="#select-tables-optimized-away">Select tables optimized away</a></li>
+<li><a href="#distinct">Distinct</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<a id="more"></a>
+
+<h2 id="explain简介"><a href="#explain简介" class="headerlink" title="explain简介"></a>explain简介</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>&#8195;&#8195;使用EXPLAIN关键字可以模拟优化器执行SQL查询语句，从而知道MySQL是如何处理你的SQL语句的，分析你的查询语句或是表结构的性能瓶颈。</p>
+<hr>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><ul>
+<li>表的读取顺序</li>
+<li>哪些索引可以使用</li>
+<li>数据读取操作的操作类型</li>
+<li>哪些索引被实际使用</li>
+<li>表之间的引用</li>
+<li>每张表有多少行被优化器查询</li>
+</ul>
+<hr>
+<h3 id="使用语法"><a href="#使用语法" class="headerlink" title="使用语法"></a>使用语法</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">Explain + SQL语句<br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;得到如下信息：<br><img src="/2020/06/30/Mysql_explain/%E5%9F%BA%E6%9C%AC%E4%BF%A1%E6%81%AF.png" alt="基本信息"></p>
+<hr>
+<h2 id="id（重要）"><a href="#id（重要）" class="headerlink" title="id（重要）"></a>id（重要）</h2><h3 id="含义"><a href="#含义" class="headerlink" title="含义"></a>含义</h3><p>&#8195;&#8195;select查询的序列号，包含一组数字，<code>表示查询中执行select子句或操作表的顺序</code>。</p>
+<hr>
+<h3 id="id相同"><a href="#id相同" class="headerlink" title="id相同"></a>id相同</h3><p>&#8195;&#8195;id相同，执行顺序由上至下。<br>&#8195;&#8195;举例：<br><img src="/2020/06/30/Mysql_explain/id%E7%9B%B8%E5%90%8C.png" alt="id相同">&#8195;&#8195;可以看到<code>id</code>为1、1、1，<code>table</code>列从上往下t1、t3、t2为三张表的执行顺序。</p>
+<hr>
+<h3 id="id不同"><a href="#id不同" class="headerlink" title="id不同"></a>id不同</h3><p>&#8195;&#8195;id不同，如果是<code>子查询</code>，id的序号会递增，<code>id值越大优先级越高，越先被执行</code>。<br>&#8195;&#8195;举例：<br><img src="/2020/06/30/Mysql_explain/id%E4%B8%8D%E5%90%8C.png" alt="id不同">&#8195;&#8195;可以看到<code>id</code>为1、2、3递增，<code>table</code>列t3、t2、t1（id从大到小）为三张表的执行顺序。</p>
+<hr>
+<h3 id="id有相同的，也有不同的"><a href="#id有相同的，也有不同的" class="headerlink" title="id有相同的，也有不同的"></a>id有相同的，也有不同的</h3><p>&#8195;&#8195;<code>id如果相同，可以认为是一组，从上往下顺序执行；在所有组中，id值越大，优先级越高，越先执行</code>。<br>&#8195;&#8195;举例：<br><img src="/2020/06/30/Mysql_explain/%E5%90%8C%E6%97%B6%E5%AD%98%E5%9C%A8.png" alt="同时存在">&#8195;&#8195;可以看到<code>id</code>为1、1、2，<code>table</code>列t3、derived2、t2为三张表的执行顺序。<br>&#8195;&#8195;说明：derived2（衍生表）–&gt;derived + 2（2表示由id=2的查询衍生出来的表。<code>type</code>肯定是<code>all</code>，<code>因为衍生的表没有建立索引</code>）</p>
+<hr>
+<h2 id="select-type"><a href="#select-type" class="headerlink" title="select_type"></a>select_type</h2><h3 id="含义-1"><a href="#含义-1" class="headerlink" title="含义"></a>含义</h3><p>&#8195;&#8195;查询的类型，主要是用于区别普通查询、联合查询、子查询等的复杂查询。<br><img src="/2020/06/30/Mysql_explain/select_type%E6%9C%89%E5%93%AA%E4%BA%9B.png" alt="select_type有哪些"></p>
+<hr>
+<h3 id="simple"><a href="#simple" class="headerlink" title="simple"></a>simple</h3><p>&#8195;&#8195;简单的select查询,查询中不包含子查询或者UNION。<br><img src="/2020/06/30/Mysql_explain/simple.png" alt="simple"></p>
+<hr>
+<h3 id="primary"><a href="#primary" class="headerlink" title="primary"></a>primary</h3><p>&#8195;&#8195;查询中若包含任何复杂的子部分，最外层查询则被标记为Primary。<br><img src="/2020/06/30/Mysql_explain/primary.png" alt="primary"></p>
+<hr>
+<h3 id="derived"><a href="#derived" class="headerlink" title="derived"></a>derived</h3><p>&#8195;&#8195;在FROM列表中包含的子查询被标记为DERIVED（衍生）MySQL会递归执行这些子查询, 把结果放在临时表里。<br><img src="/2020/06/30/Mysql_explain/derived.png" alt="derived"></p>
+<hr>
+<h3 id="subquery"><a href="#subquery" class="headerlink" title="subquery"></a>subquery</h3><p>&#8195;&#8195;在SELECT或WHERE列表中包含了子查询。<br><img src="/2020/06/30/Mysql_explain/subquery.png" alt="subquery"></p>
+<hr>
+<h3 id="dependent-subquery"><a href="#dependent-subquery" class="headerlink" title="dependent subquery"></a>dependent subquery</h3><p>&#8195;&#8195;在SELECT或WHERE列表中包含了子查询,子查询基于外层。<br><img src="/2020/06/30/Mysql_explain/dependent_subquery.png" alt="dependent_subquery">&#8195;&#8195;dependent subquery与subquery的区别：</p>
+<ul>
+<li>依赖子查询：子查询结果为多值。</li>
+<li>子查询：查询结果为单值。</li>
+</ul>
+<hr>
+<h3 id="uncacheable-subqurey"><a href="#uncacheable-subqurey" class="headerlink" title="uncacheable subqurey"></a>uncacheable subqurey</h3><p>&#8195;&#8195;无法被缓存的子查询。<br><img src="/2020/06/30/Mysql_explain/uncacheable_subqurey.png" alt="uncacheable_subqurey">&#8195;&#8195;上图中的<code>@@</code>表示查的环境参数，没办法缓存。</p>
+<hr>
+<h3 id="union、union-result"><a href="#union、union-result" class="headerlink" title="union、union result"></a>union、union result</h3><ul>
+<li>union：若第二个SELECT出现在UNION之后，则被标记为UNION；若UNION包含在FROM子句的子查询中,外层SELECT将被标记为：DERIVED。</li>
+<li>union result：从UNION表获取结果的SELECT。</li>
+</ul>
+<p><img src="/2020/06/30/Mysql_explain/union.png" alt="union"></p>
+<hr>
+<h2 id="table"><a href="#table" class="headerlink" title="table"></a>table</h2><p>&#8195;&#8195;显示这一行的数据是关于哪张表的。</p>
+<hr>
+<h2 id="type（重要）"><a href="#type（重要）" class="headerlink" title="type（重要）"></a>type（重要）</h2><h3 id="含义-2"><a href="#含义-2" class="headerlink" title="含义"></a>含义</h3><p>&#8195;&#8195;<code>显示查询使用了何种类型</code>，从<code>最好到最差</code>（常用）依次是：<font color="red">system &gt; const &gt; eq_ref &gt; ref &gt; range &gt; index &gt; ALL</font>。<br>&#8195;&#8195;一般来说，得保证查询<code>至少达到range级别</code>，<code>最好能达到ref</code>。<br><img src="/2020/06/30/Mysql_explain/type%E6%9C%89%E5%93%AA%E4%BA%9B.png" alt="type有哪些"></p>
+<hr>
+<h3 id="system"><a href="#system" class="headerlink" title="system"></a>system</h3><p>&#8195;&#8195;表<code>只有一行记录</code>（等于系统表），这是const类型的特列，平时不会出现，这个也可以忽略不计。</p>
+<hr>
+<h3 id="const"><a href="#const" class="headerlink" title="const"></a>const</h3><p>&#8195;&#8195;表示<code>通过索引一次就找到了</code>,const用于比较primary key或者unique索引。因为只匹配一行数据，所以很快如将主键置于where列表中，MySQL就能将该查询转换为一个常量。<br><img src="/2020/06/30/Mysql_explain/const.png" alt="const"></p>
+<hr>
+<h3 id="eq-ref"><a href="#eq-ref" class="headerlink" title="eq_ref"></a>eq_ref</h3><p>&#8195;&#8195;唯一性索引扫描，对于每个索引键，<code>表中只有一条记录与之匹配</code>。常见于主键或唯一索引扫描。<br><img src="/2020/06/30/Mysql_explain/eq_ref.png" alt="eq_ref"></p>
+<hr>
+<h3 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h3><p>&#8195;&#8195;非唯一性索引扫描，<code>返回匹配某个单独值的所有行</code>。本质上也是一种索引访问，<code>它返回所有匹配某个单独值的行</code>，然而，它可能会找到多个符合条件的行，所以他应该属于查找和扫描的混合体。<br><img src="/2020/06/30/Mysql_explain/ref.png" alt="ref"></p>
+<hr>
+<h3 id="range"><a href="#range" class="headerlink" title="range"></a>range</h3><p>&#8195;&#8195;<code>只检索给定范围的行</code>，使用一个索引来选择行。key列显示使用了哪个索引一般就是在你的where语句中出现了<code>between、&lt;、&gt;、in</code>等的查询，这种范围扫描索引扫描比全表扫描要好，因为它只需要开始于索引的某一点，而结束语另一点，不用扫描全部索引。<br><img src="/2020/06/30/Mysql_explain/range1.png" alt="range1"><br><img src="/2020/06/30/Mysql_explain/range2.png" alt="range2"></p>
+<hr>
+<h3 id="all、index"><a href="#all、index" class="headerlink" title="all、index"></a>all、index</h3><ul>
+<li>all：Full Table Scan，将遍历全表以找到匹配的行。</li>
+<li>index：index类型只遍历索引树。</li>
+<li>区别：Full Index Scan，<code>index与all区别为index类型只遍历索引树</code>。这通常比all快，因为索引文件通常比数据文件小。（也就是说虽然all和index都是读全表，但index是从<code>索引</code>中读取的，而all是从<code>硬盘</code>中读的）</li>
+</ul>
+<p><img src="/2020/06/30/Mysql_explain/index.png" alt="index"></p>
+<hr>
+<h2 id="possible-keys"><a href="#possible-keys" class="headerlink" title="possible_keys"></a>possible_keys</h2><p>&#8195;&#8195;显示<code>可能</code>应用在这张表中的索引，一个或多个。查询涉及到的字段上若存在索引，则该索引将被列出，<code>但不一定被查询实际使用</code>。</p>
+<hr>
+<h2 id="key（重要）"><a href="#key（重要）" class="headerlink" title="key（重要）"></a>key（重要）</h2><p>&#8195;&#8195;<code>实际使用的索引</code>，如果为NULL，则没有使用索引。查询中若使用了<code>覆盖索引</code>，<code>则该索引和查询的select字段重叠</code>。（查询的字段<code>顺序</code>和<code>个数</code>与存在的<code>索引</code>完全一致）<br><img src="/2020/06/30/Mysql_explain/key.png" alt="key">&#8195;&#8195;上图中<code>id</code>为表<code>t1</code>的主键。</p>
+<hr>
+<h2 id="key-len"><a href="#key-len" class="headerlink" title="key_len"></a>key_len</h2><p>&#8195;&#8195;表示索引中使用的<code>字节数</code>，可通过该列计算查询中使用的索引的长度（<code>在不损失精确度的情况下，长度越短越好</code>）。key_len字段显示值是索引字段的<code>最大可能长度</code>，<code>并非实际使用长度</code>，即key_len是根据表定义计算得到的，不是通过表内检索得到的。<br><img src="/2020/06/30/Mysql_explain/key_len.png" alt="key_len">&#8195;&#8195;计算规则：<br><img src="/2020/06/30/Mysql_explain/%E5%A6%82%E4%BD%95%E8%AE%A1%E7%AE%97.png" alt="如何计算">&#8195;&#8195;总结一下：</p>
+<ul>
+<li>char(30) utf8 –&gt; key_len = 30 * 3 + 1  表示<code>utf8</code>格式需要 *3 （跟数据类型有关）</li>
+<li>允许为NULL+1，不允许+0</li>
+<li>动态类型+2（动态类型包括：varchar，detail text()截取字符窜）<br>&#8195;&#8195;计算过程：<br><img src="/2020/06/30/Mysql_explain/%E8%AE%A1%E7%AE%97.png" alt="计算"><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">第一组：key_len = deptno(int) + null + ename(varchar(<span class="hljs-number">20</span>) * <span class="hljs-number">3</span> + 动态 = <span class="hljs-number">4</span> + <span class="hljs-number">1</span> + <span class="hljs-number">20</span> * <span class="hljs-number">3</span> + <span class="hljs-number">2</span> = <span class="hljs-number">67</span><br>第二组：key_len = deptno(int) + null = <span class="hljs-number">4</span> + <span class="hljs-number">1</span> = <span class="hljs-number">5</span><br></code></pre></td></tr></table></figure>
+&#8195;&#8195;<code>索引利用的越充分（利用的索引越多），查询效率越高</code>。<br><img src="/2020/06/30/Mysql_explain/%E6%98%AF%E5%90%A6%E5%85%85%E5%88%86%E5%88%A9%E7%94%A8.png" alt="是否充分利用"><br><img src="/2020/06/30/Mysql_explain/%E7%BB%93%E6%9E%9C.png" alt="结果"></li>
+</ul>
+<hr>
+<h2 id="ref-1"><a href="#ref-1" class="headerlink" title="ref"></a>ref</h2><p>&#8195;&#8195;<code>哪些列或常量被用于查找索引列上的值</code>。<br><img src="/2020/06/30/Mysql_explain/ref_new.png" alt="ref_new">&#8195;&#8195;ref列的第二行<code>mytest.emp.deptno</code>表示：mytest数据库中的emp表的deptno字段。</p>
+<hr>
+<h2 id="rows（重要）"><a href="#rows（重要）" class="headerlink" title="rows（重要）"></a>rows（重要）</h2><p>&#8195;&#8195;根据表统计信息及索引选用情况，大致估算出找到所需的记录所需要读取的行数。（越少越好）</p>
+<hr>
+<h2 id="extra（重要）"><a href="#extra（重要）" class="headerlink" title="extra（重要）"></a>extra（重要）</h2><h3 id="含义-3"><a href="#含义-3" class="headerlink" title="含义"></a>含义</h3><p>&#8195;&#8195;包含不适合在其他列中显示，但<code>十分重要的额外信息</code>。</p>
+<hr>
+<h3 id="Using-filesort（重要）"><a href="#Using-filesort（重要）" class="headerlink" title="Using filesort（重要）"></a>Using filesort（重要）</h3><p>&#8195;&#8195;说明MySQL会对数据使用一个<code>外部的</code>索引排序，而不是按照表内的索引顺序进行读取。MySQL中<code>无法利用索引</code>完成的排序操作称为<code>“文件排序”</code>。<br><img src="/2020/06/30/Mysql_explain/using_filesort%E5%89%8D.png" alt="using_filesort前">&#8195;&#8195;给<code>ename</code>加上了索引：<br><img src="/2020/06/30/Mysql_explain/using_filesort%E5%90%8E.png" alt="using_filesort前">&#8195;&#8195;<font color="red">查询中排序的字段，排序字段若通过<code>索引</code>去访问将大大提高排序速度</font>。</p>
+<hr>
+<h3 id="Using-temporary（重要）"><a href="#Using-temporary（重要）" class="headerlink" title="Using temporary（重要）"></a>Using temporary（重要）</h3><p>&#8195;&#8195;使用了<code>临时表</code>保存中间结果，MySQL在对查询结果排序时使用临时表。常见于排序<code>order by</code>和分组查询<code>group by</code>。<br><img src="/2020/06/30/Mysql_explain/using_temporary%E5%89%8D.png" alt="using_temporary前"></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">create index idx_deptno_ename on emp(deptno,ename)<br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;创建符合索引<code>emp(deptno,ename)</code>：<br><img src="/2020/06/30/Mysql_explain/using_temporary%E5%90%8E.png" alt="using_temporary后"></p>
+<hr>
+<h3 id="Using-index（重要）"><a href="#Using-index（重要）" class="headerlink" title="Using index（重要）"></a>Using index（重要）</h3><ul>
+<li>表示相应的select操作中使用了<code>覆盖索引</code>(Covering Index)，避免访问了表的数据行，效率较好。</li>
+<li>如果<code>同时出现Using where</code>，表明<code>索引被用来执行索引键值的查找</code>。</li>
+<li>如果<code>没有同时出现Using where</code>，表明<code>索引只是用来读取数据而非利用索引执行查找</code>。</li>
+<li>覆盖索引说明：<blockquote>
+<p>一个索引包含了(或覆盖了)[select子句]与查询条件[Where子句]中所有需要的字段就叫做覆盖索引。<br>举例：select id , name from t_xxx where age=18;若有一个组合索引  idx_id_name_age_xxx 包含了(覆盖了)id，name，age三个字段。查询时直接将建立了索引的列读取出来了，而不需要去查找所在行的其他数据，因此很高效。<br>如果要使用覆盖索引，一定要注意select列表中只取出需要的列，不可select *，因为如果将所有字段一起做索引会导致索引文件过大，查询性能下降。</p>
+</blockquote>
+</li>
+</ul>
+<hr>
+<h3 id="Using-where"><a href="#Using-where" class="headerlink" title="Using where"></a>Using where</h3><p>&#8195;&#8195;表明使用了<code>where</code>过滤。</p>
+<hr>
+<h3 id="Using-join-buffer"><a href="#Using-join-buffer" class="headerlink" title="Using join buffer"></a>Using join buffer</h3><p>&#8195;&#8195;使用了<code>连接缓存</code>。（出现在当两个表连接时）</p>
+<hr>
+<h3 id="Impossible-where"><a href="#Impossible-where" class="headerlink" title="Impossible where"></a>Impossible where</h3><p>&#8195;&#8195;<code>where子句的值总是false</code>，不能用来获取任何元组。<br><img src="/2020/06/30/Mysql_explain/impossible_where.png" alt="impossible_where"></p>
+<hr>
+<h3 id="Select-tables-optimized-away"><a href="#Select-tables-optimized-away" class="headerlink" title="Select tables optimized away"></a>Select tables optimized away</h3><p>&#8195;&#8195;在没有group by子句的情况下，基于索引优化MIN/MAX操作或者对于MyISAM存储引擎优化COUNT(*)操作，不必等到执行阶段再进行计算，查询执行计划生成的阶段即完成优化。</p>
+<hr>
+<h3 id="Distinct"><a href="#Distinct" class="headerlink" title="Distinct"></a>Distinct</h3><p>&#8195;&#8195;在找到第一个匹配的元组后立即停止找同样的值。</p>
+
+    </div>
+    
+    
+    
+        <div class="reward-container">
+  <div>假装有人支持！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="YunTang1997 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="YunTang1997 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>YunTang1997
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuntang1997.github.io/2020/06/30/Mysql_explain/" title="Mysql explain">https://yuntang1997.github.io/2020/06/30/Mysql_explain/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Mysql/" rel="tag"><i class="fa fa-tag"></i> Mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/28/Mysql%E7%B4%A2%E5%BC%95/" rel="prev" title="Mysql索引">
+      <i class="fa fa-chevron-left"></i> Mysql索引
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MDU0Mi8yNzAyNQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#explain简介"><span class="nav-number">1.</span> <span class="nav-text">explain简介</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#作用"><span class="nav-number">1.2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用语法"><span class="nav-number">1.3.</span> <span class="nav-text">使用语法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#id（重要）"><span class="nav-number">2.</span> <span class="nav-text">id（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#含义"><span class="nav-number">2.1.</span> <span class="nav-text">含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id相同"><span class="nav-number">2.2.</span> <span class="nav-text">id相同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id不同"><span class="nav-number">2.3.</span> <span class="nav-text">id不同</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#id有相同的，也有不同的"><span class="nav-number">2.4.</span> <span class="nav-text">id有相同的，也有不同的</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#select-type"><span class="nav-number">3.</span> <span class="nav-text">select_type</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#含义-1"><span class="nav-number">3.1.</span> <span class="nav-text">含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#simple"><span class="nav-number">3.2.</span> <span class="nav-text">simple</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#primary"><span class="nav-number">3.3.</span> <span class="nav-text">primary</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#derived"><span class="nav-number">3.4.</span> <span class="nav-text">derived</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#subquery"><span class="nav-number">3.5.</span> <span class="nav-text">subquery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#dependent-subquery"><span class="nav-number">3.6.</span> <span class="nav-text">dependent subquery</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#uncacheable-subqurey"><span class="nav-number">3.7.</span> <span class="nav-text">uncacheable subqurey</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#union、union-result"><span class="nav-number">3.8.</span> <span class="nav-text">union、union result</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#table"><span class="nav-number">4.</span> <span class="nav-text">table</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#type（重要）"><span class="nav-number">5.</span> <span class="nav-text">type（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#含义-2"><span class="nav-number">5.1.</span> <span class="nav-text">含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#system"><span class="nav-number">5.2.</span> <span class="nav-text">system</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#const"><span class="nav-number">5.3.</span> <span class="nav-text">const</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#eq-ref"><span class="nav-number">5.4.</span> <span class="nav-text">eq_ref</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ref"><span class="nav-number">5.5.</span> <span class="nav-text">ref</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#range"><span class="nav-number">5.6.</span> <span class="nav-text">range</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#all、index"><span class="nav-number">5.7.</span> <span class="nav-text">all、index</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#possible-keys"><span class="nav-number">6.</span> <span class="nav-text">possible_keys</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key（重要）"><span class="nav-number">7.</span> <span class="nav-text">key（重要）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#key-len"><span class="nav-number">8.</span> <span class="nav-text">key_len</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ref-1"><span class="nav-number">9.</span> <span class="nav-text">ref</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rows（重要）"><span class="nav-number">10.</span> <span class="nav-text">rows（重要）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#extra（重要）"><span class="nav-number">11.</span> <span class="nav-text">extra（重要）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#含义-3"><span class="nav-number">11.1.</span> <span class="nav-text">含义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-filesort（重要）"><span class="nav-number">11.2.</span> <span class="nav-text">Using filesort（重要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-temporary（重要）"><span class="nav-number">11.3.</span> <span class="nav-text">Using temporary（重要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-index（重要）"><span class="nav-number">11.4.</span> <span class="nav-text">Using index（重要）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-where"><span class="nav-number">11.5.</span> <span class="nav-text">Using where</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Using-join-buffer"><span class="nav-number">11.6.</span> <span class="nav-text">Using join buffer</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Impossible-where"><span class="nav-number">11.7.</span> <span class="nav-text">Impossible where</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Select-tables-optimized-away"><span class="nav-number">11.8.</span> <span class="nav-text">Select tables optimized away</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Distinct"><span class="nav-number">11.9.</span> <span class="nav-text">Distinct</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YunTang1997"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">YunTang1997</p>
+  <div class="site-description" itemprop="description">不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YunTang1997" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YunTang1997" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.csdn.net/" title="CSDN → https:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank"><i class="fab fa-superpowers fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2074402078@qq.com" title="E-Mail → mailto:2074402078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="ttps://www.google.com.hk/webhp?hl=zh-CN&sourceid=cnhp" title="Google → ttps:&#x2F;&#x2F;www.google.com.hk&#x2F;webhp?hl&#x3D;zh-CN&amp;sourceid&#x3D;cnhp" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.liaoxuefeng.com/wiki/1016959663602400" title="https:&#x2F;&#x2F;www.liaoxuefeng.com&#x2F;wiki&#x2F;1016959663602400" rel="noopener" target="_blank">廖雪峰python教程</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1cW411r7c5" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1cW411r7c5" rel="noopener" target="_blank">尚硅谷Hadoop教程(hadoop框架精讲)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV12b411K7Zu" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV12b411K7Zu" rel="noopener" target="_blank">MySQL基础+高级篇</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://book.douban.com/subject/26702568/" title="https:&#x2F;&#x2F;book.douban.com&#x2F;subject&#x2F;26702568&#x2F;" rel="noopener" target="_blank">《数据结构与算法 python语言描述》</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://book.douban.com/subject/23008813/" title="https:&#x2F;&#x2F;book.douban.com&#x2F;subject&#x2F;23008813&#x2F;" rel="noopener" target="_blank">《高性能MySQL》</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YunTang1997</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">46k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">42 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"log":false});</script></body>
+</html>
