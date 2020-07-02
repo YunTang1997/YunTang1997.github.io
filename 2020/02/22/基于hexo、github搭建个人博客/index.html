@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 4.2.1">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/32x32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/16x16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
 <link rel="stylesheet" href="/css/main.css">
@@ -239,7 +239,15 @@
                 </span>
             </span>
 
-          <br>
+          
+
+          <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>次
+            </span><br>
             <span class="post-meta-item" title="本文字数">
               <span class="post-meta-item-icon">
                 <i class="far fa-file-word"></i>
@@ -310,7 +318,7 @@
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo clean<br>hexo generate<br>hexo server<br></code></pre></td></tr></table></figure>
 <p>再打开本地链接<code>http://localhost:4000</code>，就可以看到：<br><img src="/2020/02/22/%E5%9F%BA%E4%BA%8Ehexo%E3%80%81github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/test%E7%BB%93%E6%9E%9C.png" alt="image"><br>看完之后记得<code>ctrl+c</code>打断<code>hexo server</code>。</p>
 <p>点击<a href="https://github.com/" target="_blank" rel="noopener">github</a>注册并登录，然后创建一个名为<code>github用户名.github.io</code>的仓库（仓库名必须是这个格式），如果不会可以在网上查询教程， 这里就不再详述。<br>完成上面这一步之后，回到终端界面，在blog路径下通过：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">cnpm install hexo -deployer-git --save<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">cnpm install --save hexo-deployer-git<br></code></pre></td></tr></table></figure>
 <p>下载git部署插键，若安装过程中有warning提示不用管，等待安装完成即可。</p>
 <p>接下来，我们找到blog文件夹里的<code>_config.yml</code>文件，右键选择<code>NotePad++</code>打开编辑，找到<code>deploy</code>设置（文件最下面），将其设置如下：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">type: git<br>repo: https://github.com/github用户名/github用户名.github.io.git<br>branch: master<br></code></pre></td></tr></table></figure>
@@ -320,7 +328,7 @@
 <hr>
 <h2 id="第五步（设置主题）"><a href="#第五步（设置主题）" class="headerlink" title="第五步（设置主题）"></a>第五步（设置主题）</h2><p><code>hexo</code>自带主题比较简单，你可以自己下载开源主题。这里给一个推荐：<code>https://github.com/litten/hexo-theme-yilia</code>。</p>
 <p>在blog路径下，通过命令行：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">git clone https://github.com/litten/hexo-theme-yilia.git clone themes<br></code></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">git clone https://github.com/litten/hexo-theme-yilia.git themes/yilia<br></code></pre></td></tr></table></figure>
 <p>下载<code>yilia</code>主题到<code>blog\themes</code>路径下（有梯子的朋友可以打开梯子，这样会加快下载速度）。</p>
 <p>然后再次找到blog文件夹里的<code>_config.yml</code>文件，右键选择<code>NotePad++</code>打开编辑，找到<code>theme</code>设置，将其改为：<code>theme: yilia</code>（同样的冒号后面有一个空格），保存退出。<br>最后在终端blog路径下，按顺序输入命令行：</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">hexo clean<br>hexo generate<br>hexo server<br>ctrl + c(组合键,打断)<br>hexo deploy<br></code></pre></td></tr></table></figure>
@@ -602,6 +610,24 @@
 
 
         
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        我的第<span id="busuanzi_value_site_uv"></span>位朋友
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        在第<span id="busuanzi_value_site_pv"></span>次后相遇
+      </span>
+    </span>
+</div>
 
 
 
