@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.1">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.ico">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yuntang1997.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="索引优化分析 单表查询优化 关联查询优化 索引失效的情况 最佳左前缀法则 索引中使用函数 索引中使用范围 使用select * 使用不等于（!&#x3D; 或者&lt;&gt;） 使用is null或者is not nul 使用like 字符串varchar不加’’ 使用or 总结 口诀     in、exists优化 order by优化 补充   group by优化 查询截取分析 慢查询日志 介">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mysql索引优化">
+<meta property="og:url" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/index.html">
+<meta property="og:site_name" content="YunTang1997の博客">
+<meta property="og:description" content="索引优化分析 单表查询优化 关联查询优化 索引失效的情况 最佳左前缀法则 索引中使用函数 索引中使用范围 使用select * 使用不等于（!&#x3D; 或者&lt;&gt;） 使用is null或者is not nul 使用like 字符串varchar不加’’ 使用or 总结 口诀     in、exists优化 order by优化 补充   group by优化 查询截取分析 慢查询日志 介">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%961.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%962.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%963.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%961.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%962.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%963.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/order_by1.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/order_by2.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/order_by%E6%80%BB%E7%BB%93.png">
+<meta property="og:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/show_profiles.png">
+<meta property="article:published_time" content="2020-07-04T01:13:00.000Z">
+<meta property="article:modified_time" content="2020-07-04T01:13:00.000Z">
+<meta property="article:author" content="YunTang1997">
+<meta property="article:tag" content="Mysql">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%961.png">
+
+<link rel="canonical" href="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mysql索引优化 | YunTang1997の博客</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="YunTang1997の博客" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">YunTang1997の博客</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">学无止尽，慢慢进步</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">6</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/YunTang1997" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mysql索引优化
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-04 09:13:00" itemprop="dateCreated datePublished" datetime="2020-07-04T09:13:00+08:00">2020-07-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>次
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <!-- TOC -->
+
+<ul>
+<li><a href="#索引优化分析">索引优化分析</a><ul>
+<li><a href="#单表查询优化">单表查询优化</a></li>
+<li><a href="#关联查询优化">关联查询优化</a></li>
+<li><a href="#索引失效的情况">索引失效的情况</a><ul>
+<li><a href="#最佳左前缀法则">最佳左前缀法则</a></li>
+<li><a href="#索引中使用函数">索引中使用函数</a></li>
+<li><a href="#索引中使用范围">索引中使用范围</a></li>
+<li><a href="#使用select-">使用select *</a></li>
+<li><a href="#使用不等于-或者">使用不等于（!= 或者&lt;&gt;）</a></li>
+<li><a href="#使用is-null或者is-not-nul">使用is null或者is not nul</a></li>
+<li><a href="#使用like">使用like</a></li>
+<li><a href="#字符串varchar不加">字符串varchar不加’’</a></li>
+<li><a href="#使用or">使用or</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#口诀">口诀</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#inexists优化">in、exists优化</a></li>
+<li><a href="#order-by优化">order by优化</a><ul>
+<li><a href="#补充">补充</a></li>
+</ul>
+</li>
+<li><a href="#group-by优化">group by优化</a></li>
+<li><a href="#查询截取分析">查询截取分析</a><ul>
+<li><a href="#慢查询日志">慢查询日志</a><ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#日志分析工具mysqldumpslow">日志分析工具（mysqldumpslow）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#show-profile">show profile</a></li>
+<li><a href="#全局查询日志">全局查询日志</a></li>
+</ul>
+<!-- /TOC -->
+<a id="more"></a>
+
+<h2 id="索引优化分析"><a href="#索引优化分析" class="headerlink" title="索引优化分析"></a>索引优化分析</h2><h3 id="单表查询优化"><a href="#单表查询优化" class="headerlink" title="单表查询优化"></a>单表查询优化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT<br>	id <br>FROM<br>	article <br>WHERE<br>	category_id = <span class="hljs-number">1</span> <br>	AND comments &gt; <span class="hljs-number">1</span> <br>ORDER BY<br>	views DESC <br>	LIMIT <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%961.png" alt="单表优化1">&#8195;&#8195;很显然，type是ALL，extra里还出现了Using filesort，所以必须优化。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建索引</span><br>CREATE INDEX idx_article_ccv ON article ( category_id, comments, views );<br><br>EXPLAIN SELECT<br>	id <br>FROM<br>	article <br>WHERE<br>	category_id = <span class="hljs-number">1</span> <br>	AND comments &gt; <span class="hljs-number">1</span> <br>ORDER BY<br>	views DESC <br>	LIMIT <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%962.png" alt="单表优化2">&#8195;&#8195;type变成了range，这是可以忍受的。但是extra里使用了Using filesort，所以需要继续优化。<br>&#8195;&#8195;我们已经建立了索引，为什么会没有用呢？<br>&#8195;&#8195;这是因为按照BTree索引的工作原理，先排序category_id。如果遇到相同的category_id则再排序comments，如果遇到相同的comments则再排序views。由于comments字段在联合索引里处于中间位置，且comments &gt; 1条件是一个范围值（所谓 range），所以MySQL无法利用索引再对后面的views部分进行检索，即<code>range类型查询字段后面的索引无效</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 删除已创建索引</span><br>DROP INDEX idx_article_ccv ON article;<br><span class="hljs-comment"># 重新创建索引</span><br>CREATE INDEX idx_article_cv ON article( category_id, views );<br><br>EXPLAIN SELECT<br>	id <br>FROM<br>	article <br>WHERE<br>	category_id = <span class="hljs-number">1</span> <br>	AND comments &gt; <span class="hljs-number">1</span> <br>ORDER BY<br>	views DESC <br>	LIMIT <span class="hljs-number">1</span>;<br></code></pre></td></tr></table></figure>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%8D%95%E8%A1%A8%E4%BC%98%E5%8C%963.png" alt="单表优化3">&#8195;&#8195;可以看到：type变为了ref，extra中的Using filesort 也消失了，结果非常理想。</p>
+<hr>
+<h3 id="关联查询优化"><a href="#关联查询优化" class="headerlink" title="关联查询优化"></a>关联查询优化</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 左连接</span><br>EXPLAIN SELECT<br>	* <br>FROM<br>	<span class="hljs-class"><span class="hljs-keyword">class</span></span><br>	LEFT JOIN book ON class.card = book.card;<br></code></pre></td></tr></table></figure>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%961.png" alt="关联查询优化1">&#8195;&#8195;可以发现：type有All。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 创建右表索引</span><br>CREATE INDEX idx_book_card ON book( card );<br><span class="hljs-comment"># 左连接</span><br>EXPLAIN SELECT<br>	* <br>FROM<br>	<span class="hljs-class"><span class="hljs-keyword">class</span></span><br>	LEFT JOIN book ON class.card = book.card;<br></code></pre></td></tr></table></figure>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%962.png" alt="关联查询优化2">&#8195;&#8195;可以看：到第二行的type变为了ref，rows也变成了1，优化比较明显。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># 删除左表索引</span><br>DROP INDEX idx_book_card ON book;<br><span class="hljs-comment"># 创建左表索引</span><br>CREATE INDEX idx_class_card ON class( card );<br><span class="hljs-comment"># 左连接</span><br>EXPLAIN SELECT<br>	* <br>FROM<br>	<span class="hljs-class"><span class="hljs-keyword">class</span></span><br>	LEFT JOIN book ON class.card = book.card;<br></code></pre></td></tr></table></figure>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/%E5%85%B3%E8%81%94%E6%9F%A5%E8%AF%A2%E4%BC%98%E5%8C%963.png" alt="关联查询优化3">&#8195;&#8195;可以发现：type第二行又变回了ALL。这是由<code>左连接特性</code>决定的。<code>LEFT JOIN条件用于确定如何从右表搜索行，左边一定都有，所以右边是我们的关键点，一定需要建立索引</code>。<br>&#8195;&#8195;总结：使用<code>left join</code>需要给<code>右表（被驱动表）</code>建立索引；使用<code>right join</code>需要给<code>左表（被驱动表）</code>建立索引。<br>&#8195;&#8195;建议：</p>
+<ol>
+<li>保证被驱动表join字段已经建立索引。</li>
+<li>left join/right join时，选择小表作为驱动表，大表作为被驱动表。</li>
+<li>inner join时，mysql会自己将小结果集的表选为驱动表。</li>
+<li>子查询尽量不要放在被驱动表，有可能使用不到索引。若必须用到子查询，可将子查询设置为驱动表，因为驱动表的type肯定是all，而子查询返回的结果表没有索引，必定也是all。</li>
+<li>优先优化嵌套循环的内层循环。</li>
+</ol>
+<hr>
+<h3 id="索引失效的情况"><a href="#索引失效的情况" class="headerlink" title="索引失效的情况"></a>索引失效的情况</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">CREATE INDEX idx_staffs_nameAgePos ON staffs(NAME, age, pos);  <span class="hljs-comment"># 创建索引</span><br></code></pre></td></tr></table></figure>
+<hr>
+<h4 id="最佳左前缀法则"><a href="#最佳左前缀法则" class="headerlink" title="最佳左前缀法则"></a>最佳左前缀法则</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE NAME = <span class="hljs-string">'July'</span>;  <span class="hljs-comment"># 索引有效</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME = <span class="hljs-string">'July'</span> AND age = <span class="hljs-number">25</span>;  <span class="hljs-comment"># 索引有效</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME = <span class="hljs-string">'July'</span> AND age = <span class="hljs-number">25</span> AND pos = <span class="hljs-string">'dev'</span>;  <span class="hljs-comment"># 索引有效</span><br>EXPLAIN SELECT * FROM staffs WHERE age = <span class="hljs-number">25</span> AND pos = <span class="hljs-string">'dev'</span>;  <span class="hljs-comment"># 索引失效</span><br>EXPLAIN SELECT * FROM staffs WHERE pos = <span class="hljs-string">'dev'</span>;  <span class="hljs-comment"># 索引失效</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME = <span class="hljs-string">'July'</span> AND pos = <span class="hljs-string">'dev'</span>;  <span class="hljs-comment"># 索引部分有效</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;如果索引了多列，要遵守最左前缀法则。指的是查询从索引的最左前列开始并且不跳过索引中的列。</p>
+<hr>
+<h4 id="索引中使用函数"><a href="#索引中使用函数" class="headerlink" title="索引中使用函数"></a>索引中使用函数</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE left( NAME, <span class="hljs-number">4</span> ) = <span class="hljs-string">'July'</span>;  <span class="hljs-comment"># 索引失效</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;不在索引列上做任何操作（计算、函数、(自动or手动)类型转换），会导致索引失效而转向全表扫描。</p>
+<hr>
+<h4 id="索引中使用范围"><a href="#索引中使用范围" class="headerlink" title="索引中使用范围"></a>索引中使用范围</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE NAME = <span class="hljs-string">'july'</span> AND age &gt; <span class="hljs-number">25</span> AND pos = <span class="hljs-string">'manager'</span>;  <span class="hljs-comment"># 索引部分有效</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;存储引擎不能使用索引中范围条件右边的列。</p>
+<hr>
+<h4 id="使用select"><a href="#使用select" class="headerlink" title="使用select *"></a>使用select *</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT NAME, age, pos FROM staffs WHERE NAME = <span class="hljs-string">'july'</span> AND age = <span class="hljs-number">25</span> AND pos = <span class="hljs-string">'manager'</span>;  <span class="hljs-comment"># extra为Using index</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME = <span class="hljs-string">'july'</span> AND age = <span class="hljs-number">25</span> AND pos = <span class="hljs-string">'manager'</span>;  <span class="hljs-comment"># extra为Null</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;尽量使用覆盖索引（只访问索引的查询（索引列和查询列一致）），减少select *。</p>
+<hr>
+<h4 id="使用不等于（-或者-lt-gt-）"><a href="#使用不等于（-或者-lt-gt-）" class="headerlink" title="使用不等于（!= 或者&lt;&gt;）"></a>使用不等于（!= 或者&lt;&gt;）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE NAME != <span class="hljs-string">'july'</span>;  <span class="hljs-comment"># 索引失效</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME &lt;&gt; <span class="hljs-string">'july'</span>;  <span class="hljs-comment"># 索引失效</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;mysql在使用不等于（!= 或者&lt;&gt;）的时候无法使用索引会导致全表扫描。</p>
+<hr>
+<h4 id="使用is-null或者is-not-nul"><a href="#使用is-null或者is-not-nul" class="headerlink" title="使用is null或者is not nul"></a>使用is null或者is not nul</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE NAME IS NOT NULL;  <span class="hljs-comment"># 索引失效</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME IS NULL;  <span class="hljs-comment"># 索引有效</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;is not null也无法使用索引，但是is null是可以使用索引的。</p>
+<hr>
+<h4 id="使用like"><a href="#使用like" class="headerlink" title="使用like"></a>使用like</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE NAME LIKE <span class="hljs-string">'%july%'</span>;  <span class="hljs-comment"># 索引失效</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME LIKE <span class="hljs-string">'%july'</span>;  <span class="hljs-comment"># 索引失效</span><br>EXPLAIN SELECT * FROM staffs WHERE NAME LIKE <span class="hljs-string">'july%'</span>;  <span class="hljs-comment"># 索引有效</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;使用like关键字的时候，%放右边会使用索引。如果一定要使用%char%的形式，则需要用覆盖索引。</p>
+<hr>
+<h4 id="字符串varchar不加’’"><a href="#字符串varchar不加’’" class="headerlink" title="字符串varchar不加’’"></a>字符串varchar不加’’</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE `NAME` = <span class="hljs-string">'2000'</span>;  <span class="hljs-comment"># 索引有效</span><br>EXPLAIN SELECT * FROM staffs WHERE `NAME` = <span class="hljs-number">2000</span>;  <span class="hljs-comment"># 索引失效（SELECT语句也能查询出结果，因为mysql会自动隐性类型转换）</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;字符串不加单引号索引失效。</p>
+<hr>
+<h4 id="使用or"><a href="#使用or" class="headerlink" title="使用or"></a>使用or</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">EXPLAIN SELECT * FROM staffs WHERE NAME = <span class="hljs-string">'july'</span> OR age = <span class="hljs-number">23</span>;  <span class="hljs-comment"># 索引失效</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;用or来连接时会索引失效。</p>
+<hr>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><p>&#8195;&#8195;假设index(a, b, c)。</p>
+<table>
+<thead>
+<tr>
+<th align="center">Where语句</th>
+<th align="center">索引是否被使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">where a = 3</td>
+<td align="center">Y，使用到a</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and b = 5</td>
+<td align="center">Y，使用到a，b</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and b = 5 and c = 4</td>
+<td align="center">Y，使用到a，b，c</td>
+</tr>
+<tr>
+<td align="center">where b = 3 或者 where b = 3 and c = 4  或者 where c = 4</td>
+<td align="center">N</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and c = 5</td>
+<td align="center">使用到a，但是c不可以，因为b中间断了</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and b &gt; 4 and c = 5</td>
+<td align="center">使用到a和b，c不能用在范围之后，b后断了</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and b like ‘kk%’ and c = 4</td>
+<td align="center">Y，使用到a，b，c</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and b like ‘%kk’ and c = 4</td>
+<td align="center">Y，只用到a</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and b like ‘%kk%’ and c = 4</td>
+<td align="center">Y，只用到a</td>
+</tr>
+<tr>
+<td align="center">where a = 3 and b like ‘k%kk%’ and c = 4</td>
+<td align="center">Y，使用到a，b，c</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<hr>
+<h4 id="口诀"><a href="#口诀" class="headerlink" title="口诀"></a>口诀</h4><ol>
+<li>全职匹配我最爱，最左前缀要遵守；</li>
+<li>带头大哥不能死，中间兄弟不能断（永远符合最佳左前缀原则）；</li>
+<li>索引列上少计算，范围之后全失效；</li>
+<li>like百分写最右，覆盖索引不写*；</li>
+<li>不等空值要少用，varchar引号不可丢。</li>
+</ol>
+<hr>
+<h2 id="in、exists优化"><a href="#in、exists优化" class="headerlink" title="in、exists优化"></a>in、exists优化</h2><p>&#8195;&#8195;优化原则：<code>小表驱动大表</code>，即小的数据集驱动大的数据集。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">SELECT  * FROM A WHERE id IN (SELECT id FROM B);<br><span class="hljs-comment"># ①先执行SELECT id FROM B;</span><br><span class="hljs-comment"># ②再执行SELECT * FROM A WHERE A.id = B.id;</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;当B表的数据集小于A表时，用<code>IN</code>优于<code>EXISTS</code>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">SELECT * FROM A WHERE EXISTS (SELECT <span class="hljs-number">1</span> FROM B WHERE B.id = A.id);<br><span class="hljs-comment"># ①先执行SELECT * FROM A;</span><br><span class="hljs-comment"># ②再执行SELECT * FROM B WHERE B.id = A.id;</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;exists语法说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">SELECT ... FROM table WHERE EXISTS (subquery);<br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;<code>将主查询中的数据放到子查询中做验证，根据验证结果（true/false）来决定主查询的数据结果是否得以保留</code>。因为<code>EXISTS (subquery)</code>的结果只是true或者false，所以子查询中的<code>SELECT 1</code>可以是<code>SELECT *、SELECT &#39;X&#39;以及SELECT 常量</code>，实际执行时MySQL会忽略SELECT的结果。</p>
+<hr>
+<h2 id="order-by优化"><a href="#order-by优化" class="headerlink" title="order by优化"></a>order by优化</h2><p>&#8195;&#8195;尽量使用<code>Index</code>方式排序，避免使用<code>FileSort</code>方式排序。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">CREATE INDEX idx_A_ageBrith ON tblA (age, Birth);<br></code></pre></td></tr></table></figure>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/order_by1.png" alt="order_by1"><br><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/order_by2.png" alt="order_br2">&#8195;&#8195;总结：尽可能在索引列上完成排序操作，遵照索引建的最佳左前缀原则。<br><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/order_by%E6%80%BB%E7%BB%93.png" alt="order_by总结">&#8195;&#8195;第二种情况中，<code>where a = const and b &gt; const order by b, c</code>不会出现<code>using filesort</code>，因为order by后的b用到了索引，b、c两个衔接上了。而<code>where a = const and b &gt; const order by c</code>将会出现<code>using filesort</code>，因为<code>b用了范围索引</code>且order by后只用了c没有衔接上。</p>
+<hr>
+<h3 id="补充"><a href="#补充" class="headerlink" title="补充"></a>补充</h3><p>&#8195;&#8195;如果不在索引列上，filesort有两种算法：<code>双路排序</code>和<code>单路排序</code>。<br>&#8195;&#8195;双路排序：MySQL4.1之前是使用双路排序，字面意思就是两次扫描磁盘，最终得到数据，读取行指针和order by列，对它们进行排序，然后扫描已经排序好的列表，按照列表中的值重新从列表中读取对应的数据输出。从<code>磁盘</code>取排序字段，在<code>buffer（缓存）</code>进行排序，再从磁盘取其他字段。取一批数据，要对磁盘进行了两次扫描，众所周知I\O是很耗时的，所以在MySQL4.1之后，出现了第二种改进的算法，就是单路排序。<br>&#8195;&#8195;从磁盘读取查询需要的所有列，按照order by列在buffer对它们进行排序，然后将扫描排序后的列表进行输出，它的效率更快一些，避免了第二次读取数据，并且把随机IO变成了顺序IO，但是它会使用更多的空间，因为它把每一行都保存在内存中了。但是它有一个缺点：在sort_buffer中，单路排序比双路排序要多占用很多空间，因为单路排序是把所有字段都取出, 所以有可能取出的数据的总大小超出了sort_buffer的容量，导致每次只能取sort_buffer容量大小的数据，进行排序（创建tmp文件，多路合并），排完再去取sort_buffer容量大小，再排，…，从而多次I/O。<br>&#8195;&#8195;总的来说，单路算法优于双路算法。为了解决上述出现的问题，有一下三种解决方案：</p>
+<ul>
+<li>增大<code>sort_buffer_size</code>参数（单路排序的内存大小）。不管用哪种算法，提高这个参数都会提高效率，当然，要根据系统的能力去提高，因为这个参数是针对每个进程的。</li>
+<li>增大<code>max_length_for_sort_data</code>参数（单次排序字段大小）。提高这个参数，会增加用改进算法的概率。但是如果设的太高，数据总容量超出sort_buffer_size的概率就增大，明显症状是高的磁盘I/O活动和低的处理器使用率。</li>
+<li><code>去掉select后面不需要的字段</code>。使用order by时同时使用select *是不可取的。</li>
+</ul>
+<hr>
+<h2 id="group-by优化"><a href="#group-by优化" class="headerlink" title="group by优化"></a>group by优化</h2><ul>
+<li>group by实质是<code>先排序后进行分组</code>，遵照索引建的最佳左前缀。</li>
+<li>当无法使用索引列，增大<code>max_length_for_sort_data</code>参数的设置和增大<code>sort_buffer_size</code>参数的设置。</li>
+<li>where高于having，能写在where限定的条件就不要去having限定。</li>
+</ul>
+<hr>
+<h2 id="查询截取分析"><a href="#查询截取分析" class="headerlink" title="查询截取分析"></a>查询截取分析</h2><h3 id="慢查询日志"><a href="#慢查询日志" class="headerlink" title="慢查询日志"></a>慢查询日志</h3><h4 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h4><p>&#8195;&#8195;MySQL的慢查询日志是MySQL提供的一种日志记录，它用来记录在MySQL中响应时间超过阈值（默认&gt;10s）的语句，具体指运行时间超过long_query_time值的SQL，则会被记录到慢查询日志中。<code>默认情况下，MySQL数据库没有开启慢查询日志，需要我们手动来设置这个参数</code>（MySQL版本5.6）。当然，<code>如果不是调优需要的话，一般不建议启动该参数</code>，因为开启慢查询日志会或多或少带来一定的性能影响。（在MySQL8.0中慢查询日志默认是开启的）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">SHOW VARIABLES LIKE <span class="hljs-string">'%slow_query_log%'</span>;  <span class="hljs-comment"># 查询慢查询日志开启情况以及慢日志存储路径</span><br>SET GLOBAL slow_query_log = <span class="hljs-number">1</span>;  <span class="hljs-comment"># 开启了慢查询日志只对当前数据库生效，如果MySQL重启后则会失效。</span><br>SHOW VARIABLES LIKE <span class="hljs-string">'%long_query_time%'</span>;  <span class="hljs-comment"># 查看阈值大小，系统默认阈值&gt;10秒</span><br>SET GLOBAL long_query_time = n;  <span class="hljs-comment"># 修改阈值大小为&gt;n秒</span><br>SHOW GLOBAL STATUS LIKE <span class="hljs-string">'%Slow_queries%'</span>;  <span class="hljs-comment"># 查询已产生的慢日志条数</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;如果需要永久开启慢日志查询（Windows环境），需要在<code>D:\software\MySQL\Data</code>（MySQL的安装目录下的Data文件夹下）找到<code>my.ini</code>（Linux环境下寻找<code>my.cnf</code>文件）配置文件并在<code>[mysqld]</code>下增加或修改参数<br>slow_query_log和slow_query_log_file，然后重启MySQL服务器。即将如下两行配置进my.ini文件:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">slow_query_log=<span class="hljs-number">1</span><br>slow_query_log_file=慢查询日志文件路径<br></code></pre></td></tr></table></figure>
+<hr>
+<h4 id="日志分析工具（mysqldumpslow）"><a href="#日志分析工具（mysqldumpslow）" class="headerlink" title="日志分析工具（mysqldumpslow）"></a>日志分析工具（mysqldumpslow）</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">mysqldumpslow -s r -t <span class="hljs-number">10</span> 慢查询日志路径  <span class="hljs-comment"># 得到返回记录集最多的10个SQL</span><br>mysqldumpslow -s c -t <span class="hljs-number">10</span> 慢查询日志路径  <span class="hljs-comment"># 得到访问次数最多的10个SQL</span><br>mysqldumpslow -s t -t <span class="hljs-number">10</span> -g <span class="hljs-string">"left join"</span> 慢查询日志路径  <span class="hljs-comment"># 得到按照时间排序的前10条里面含有左连接的查询语句</span><br>mysqldumpslow -s r -t <span class="hljs-number">10</span> 慢查询日志路径 | more  <span class="hljs-comment"># 结合 | 和more使用</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;mysqldumpslow命令各选项以及含义如下：</p>
+<table>
+<thead>
+<tr>
+<th align="center">选线</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">s</td>
+<td align="center">按照何种方式排序</td>
+</tr>
+<tr>
+<td align="center">c</td>
+<td align="center">访问次数</td>
+</tr>
+<tr>
+<td align="center">l</td>
+<td align="center">锁定时间</td>
+</tr>
+<tr>
+<td align="center">r</td>
+<td align="center">返回记录</td>
+</tr>
+<tr>
+<td align="center">t</td>
+<td align="center">查询时间</td>
+</tr>
+<tr>
+<td align="center">al</td>
+<td align="center">平均锁定时间</td>
+</tr>
+<tr>
+<td align="center">ar</td>
+<td align="center">平均返回记录</td>
+</tr>
+<tr>
+<td align="center">at</td>
+<td align="center">平均查询时间</td>
+</tr>
+<tr>
+<td align="center">t</td>
+<td align="center">返回前面多少条数据</td>
+</tr>
+<tr>
+<td align="center">g</td>
+<td align="center">搭配正则表达式，大小写不敏感</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="show-profile"><a href="#show-profile" class="headerlink" title="show profile"></a>show profile</h2><p>&#8195;&#8195;MySQL提供可以用来分析当前会话中语句执行的<code>资源消耗</code>情况，可以用于SQL的调优的测量。默认情况下，参数处于关闭状态，并保存<code>最近15次</code>的运行结果。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">SHOW VARIABLES LIKE <span class="hljs-string">'profiling'</span>;  <span class="hljs-comment"># 查看当前show profiling是否开启</span><br>SET profiling = NO;  <span class="hljs-comment"># 开启show profiling功能</span><br>SHOW profiles;  <span class="hljs-comment"># 运行SQL语句以后，查看结果</span><br>SHOW profile [cpu, block io] FOR query n;  <span class="hljs-comment"># n为SHOW profiles结果中的query ID;</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;show profile选项及含义：</p>
+<table>
+<thead>
+<tr>
+<th align="center">选项</th>
+<th align="center">含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">ALL</td>
+<td align="center">显示所有的开销信息</td>
+</tr>
+<tr>
+<td align="center">BLOCK IO</td>
+<td align="center">显示块IO相关开销</td>
+</tr>
+<tr>
+<td align="center">CONTEXT SWITCHES</td>
+<td align="center">上下文切换相关开销</td>
+</tr>
+<tr>
+<td align="center">CPU</td>
+<td align="center">显示CPU相关开销信息</td>
+</tr>
+<tr>
+<td align="center">IPC</td>
+<td align="center">显示发送和接收相关开销信息</td>
+</tr>
+<tr>
+<td align="center">MEMORY</td>
+<td align="center">显示内存相关开销信息</td>
+</tr>
+<tr>
+<td align="center">PAGE FAULTS</td>
+<td align="center">显示页面错误相关开销信息</td>
+</tr>
+<tr>
+<td align="center">SOURCE</td>
+<td align="center">显示和Source_function，Source_file，Source_line相关的开销信息</td>
+</tr>
+<tr>
+<td align="center">SWAPS</td>
+<td align="center">显示交换次数相关开销的信息</td>
+</tr>
+<tr>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody></table>
+<p><img src="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/show_profiles.png" alt="show_profile">&#8195;&#8195;如果查询结果中出现如下结果SQL必须优化：</p>
+<ul>
+<li><code>converting HEAP to MyISAM</code>：查询结果太大，内存都不够用往磁盘写。</li>
+<li><code>Creating tmp table</code>：创建临时表。</li>
+<li><code>Copying to tmp table on disk</code>：内存中临时表复制到磁盘，非常消耗内存。</li>
+<li><code>locked</code></li>
+</ul>
+<hr>
+<h2 id="全局查询日志"><a href="#全局查询日志" class="headerlink" title="全局查询日志"></a>全局查询日志</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">SET GLOBAL general_log = <span class="hljs-number">1</span>;  <span class="hljs-comment"># 开启全局查询日志功能</span><br><span class="hljs-comment"># 全局日志可以存放到日志文件中，也可以存放到Mysql系统表中，存放到日志中性能更好一些</span><br>SET GLOBAL log_output = <span class="hljs-string">'TABLE'</span>;  <span class="hljs-comment"># 存放到Mysql系统表中，此后所编写的sql语句，将会记录到mysql库里的general_log表</span><br>SELECT * FROM mysql.general_log;  <span class="hljs-comment"># 查看日志</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;全局查询日志功能同样可以去配置文件添加，Windows（my.ini文件）、Linux（my.cnf文件）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">general_log=<span class="hljs-number">1</span>  <span class="hljs-comment"># 开启 </span><br>general_log_file=/path/logfile  <span class="hljs-comment"># 设置路径</span><br>log_output=FILE  <span class="hljs-comment"># 输出格式</span><br></code></pre></td></tr></table></figure>
+<p>&#8195;&#8195;尽量不要在生产环境开启这个功能。</p>
+<hr>
+
+    </div>
+    
+    
+    
+        <div class="reward-container">
+  <div>假装有人支持！</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpg" alt="YunTang1997 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpg" alt="YunTang1997 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>YunTang1997
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" title="Mysql索引优化">https://yuntang1997.github.io/2020/07/04/Mysql索引优化/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="/atom.xml">
+            <span class="icon">
+              <i class="fa fa-rss"></i>
+            </span>
+
+            <span class="label">RSS</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      
+        <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+
+      
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/Mysql/" rel="tag"><i class="fa fa-tag"></i> Mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/06/30/Mysql_explain/" rel="prev" title="Mysql explain">
+      <i class="fa fa-chevron-left"></i> Mysql explain
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/07/05/Mysql%E9%94%81%E6%9C%BA%E5%88%B6/" rel="next" title="Mysql锁机制">
+      Mysql锁机制 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC81MDU0Mi8yNzAyNQ=="></div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#索引优化分析"><span class="nav-number">1.</span> <span class="nav-text">索引优化分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#单表查询优化"><span class="nav-number">1.1.</span> <span class="nav-text">单表查询优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关联查询优化"><span class="nav-number">1.2.</span> <span class="nav-text">关联查询优化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#索引失效的情况"><span class="nav-number">1.3.</span> <span class="nav-text">索引失效的情况</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#最佳左前缀法则"><span class="nav-number">1.3.1.</span> <span class="nav-text">最佳左前缀法则</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引中使用函数"><span class="nav-number">1.3.2.</span> <span class="nav-text">索引中使用函数</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#索引中使用范围"><span class="nav-number">1.3.3.</span> <span class="nav-text">索引中使用范围</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用select"><span class="nav-number">1.3.4.</span> <span class="nav-text">使用select *</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用不等于（-或者-lt-gt-）"><span class="nav-number">1.3.5.</span> <span class="nav-text">使用不等于（!&#x3D; 或者&lt;&gt;）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用is-null或者is-not-nul"><span class="nav-number">1.3.6.</span> <span class="nav-text">使用is null或者is not nul</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用like"><span class="nav-number">1.3.7.</span> <span class="nav-text">使用like</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#字符串varchar不加’’"><span class="nav-number">1.3.8.</span> <span class="nav-text">字符串varchar不加’’</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用or"><span class="nav-number">1.3.9.</span> <span class="nav-text">使用or</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#总结"><span class="nav-number">1.3.10.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#口诀"><span class="nav-number">1.3.11.</span> <span class="nav-text">口诀</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#in、exists优化"><span class="nav-number">2.</span> <span class="nav-text">in、exists优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#order-by优化"><span class="nav-number">3.</span> <span class="nav-text">order by优化</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#补充"><span class="nav-number">3.1.</span> <span class="nav-text">补充</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#group-by优化"><span class="nav-number">4.</span> <span class="nav-text">group by优化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查询截取分析"><span class="nav-number">5.</span> <span class="nav-text">查询截取分析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#慢查询日志"><span class="nav-number">5.1.</span> <span class="nav-text">慢查询日志</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#介绍"><span class="nav-number">5.1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#日志分析工具（mysqldumpslow）"><span class="nav-number">5.1.2.</span> <span class="nav-text">日志分析工具（mysqldumpslow）</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#show-profile"><span class="nav-number">6.</span> <span class="nav-text">show profile</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#全局查询日志"><span class="nav-number">7.</span> <span class="nav-text">全局查询日志</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="YunTang1997"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">YunTang1997</p>
+  <div class="site-description" itemprop="description">不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">22</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">6</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/YunTang1997" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;YunTang1997" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.csdn.net/" title="CSDN → https:&#x2F;&#x2F;www.csdn.net&#x2F;" rel="noopener" target="_blank"><i class="fab fa-superpowers fa-fw"></i>CSDN</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:2074402078@qq.com" title="E-Mail → mailto:2074402078@qq.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="ttps://www.google.com.hk/webhp?hl=zh-CN&sourceid=cnhp" title="Google → ttps:&#x2F;&#x2F;www.google.com.hk&#x2F;webhp?hl&#x3D;zh-CN&amp;sourceid&#x3D;cnhp" rel="noopener" target="_blank"><i class="fab fa-google fa-fw"></i>Google</a>
+      </span>
+  </div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      推荐阅读
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://www.liaoxuefeng.com/wiki/1016959663602400" title="https:&#x2F;&#x2F;www.liaoxuefeng.com&#x2F;wiki&#x2F;1016959663602400" rel="noopener" target="_blank">廖雪峰python教程</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV1cW411r7c5" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV1cW411r7c5" rel="noopener" target="_blank">尚硅谷Hadoop教程(hadoop框架精讲)</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://www.bilibili.com/video/BV12b411K7Zu" title="https:&#x2F;&#x2F;www.bilibili.com&#x2F;video&#x2F;BV12b411K7Zu" rel="noopener" target="_blank">MySQL基础+高级篇</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://book.douban.com/subject/26702568/" title="https:&#x2F;&#x2F;book.douban.com&#x2F;subject&#x2F;26702568&#x2F;" rel="noopener" target="_blank">《数据结构与算法 python语言描述》</a>
+        </li>
+        <li class="links-of-blogroll-item">
+          <a href="https://book.douban.com/subject/23008813/" title="https:&#x2F;&#x2F;book.douban.com&#x2F;subject&#x2F;23008813&#x2F;" rel="noopener" target="_blank">《高性能MySQL》</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">YunTang1997</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">57k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">52 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        我的第<span id="busuanzi_value_site_uv"></span>位朋友
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        在第<span id="busuanzi_value_site_pv"></span>次后相遇
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+<script>
+document.querySelectorAll('.pdfobject-container').forEach(element => {
+  let url = element.dataset.target;
+  let pdfOpenParams = {
+    navpanes : 0,
+    toolbar  : 0,
+    statusbar: 0,
+    pagemode : 'thumbs',
+    view     : 'FitH'
+  };
+  let pdfOpenFragment = '#' + Object.entries(pdfOpenParams).map(([key, value]) => `${key}=${encodeURIComponent(value)}`).join('&');
+  let fullURL = `/lib/pdf/web/viewer.html?file=${encodeURIComponent(url)}${pdfOpenFragment}`;
+
+  if (NexT.utils.supportsPDFs()) {
+    element.innerHTML = `<embed class="pdfobject" src="${url + pdfOpenFragment}" type="application/pdf" style="height: ${element.dataset.height};">`;
+  } else {
+    element.innerHTML = `<iframe src="${fullURL}" style="height: ${element.dataset.height};" frameborder="0"></iframe>`;
+  }
+});
+</script>
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"model":{"jsonPath":"/live2dw/assets/hijiki.model.json"},"display":{"position":"left","width":100,"height":200},"mobile":{"show":true},"log":false});</script></body>
+</html>

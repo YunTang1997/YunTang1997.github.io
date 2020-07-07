@@ -137,7 +137,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">20</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">22</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,232 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/05/Mysql%E9%94%81%E6%9C%BA%E5%88%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/05/Mysql%E9%94%81%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">Mysql锁机制</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-05 09:13:00" itemprop="dateCreated datePublished" datetime="2020-07-05T09:13:00+08:00">2020-07-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#定义">定义</a></li>
+<li><a href="#锁的分类">锁的分类</a></li>
+<li><a href="#表锁偏读">表锁（偏读）</a></li>
+<li><a href="#行锁偏写">行锁（偏写）</a></li>
+<li><a href="#页锁了解">页锁（了解）</a></li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/05/Mysql%E9%94%81%E6%9C%BA%E5%88%B6/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">Mysql索引优化</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-07-04 09:13:00" itemprop="dateCreated datePublished" datetime="2020-07-04T09:13:00+08:00">2020-07-04</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#索引优化分析">索引优化分析</a><ul>
+<li><a href="#单表查询优化">单表查询优化</a></li>
+<li><a href="#关联查询优化">关联查询优化</a></li>
+<li><a href="#索引失效的情况">索引失效的情况</a><ul>
+<li><a href="#最佳左前缀法则">最佳左前缀法则</a></li>
+<li><a href="#索引中使用函数">索引中使用函数</a></li>
+<li><a href="#索引中使用范围">索引中使用范围</a></li>
+<li><a href="#使用select-">使用select *</a></li>
+<li><a href="#使用不等于-或者">使用不等于（!= 或者&lt;&gt;）</a></li>
+<li><a href="#使用is-null或者is-not-nul">使用is null或者is not nul</a></li>
+<li><a href="#使用like">使用like</a></li>
+<li><a href="#字符串varchar不加">字符串varchar不加’’</a></li>
+<li><a href="#使用or">使用or</a></li>
+<li><a href="#总结">总结</a></li>
+<li><a href="#口诀">口诀</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#inexists优化">in、exists优化</a></li>
+<li><a href="#order-by优化">order by优化</a><ul>
+<li><a href="#补充">补充</a></li>
+</ul>
+</li>
+<li><a href="#group-by优化">group by优化</a></li>
+<li><a href="#查询截取分析">查询截取分析</a><ul>
+<li><a href="#慢查询日志">慢查询日志</a><ul>
+<li><a href="#介绍">介绍</a></li>
+<li><a href="#日志分析工具mysqldumpslow">日志分析工具（mysqldumpslow）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#show-profile">show profile</a></li>
+<li><a href="#全局查询日志">全局查询日志</a></li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -1085,226 +1311,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">Linux常用命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-22 16:30:00" itemprop="dateCreated datePublished" datetime="2020-06-22T16:30:00+08:00">2020-06-22</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>5.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>5 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#开机重启和用户登录">开机、重启和用户登录</a></li>
-<li><a href="#用户注销">用户注销</a></li>
-<li><a href="#用户管理">用户管理</a></li>
-<li><a href="#用户组管理">用户组管理</a></li>
-<li><a href="#用户和组的相关文件">用户和组的相关文件</a></li>
-<li><a href="#指定运行级别">指定运行级别</a><ul>
-<li><a href="#应用">应用</a></li>
-</ul>
-</li>
-<li><a href="#帮助指令">帮助指令</a></li>
-<li><a href="#文件目录指令">文件目录指令</a></li>
-<li><a href="#日期时间指令">日期时间指令</a></li>
-<li><a href="#搜索查找指令">搜索查找指令</a><ul>
-<li><a href="#find">find</a></li>
-<li><a href="#locate">locate</a></li>
-<li><a href="#grep">grep</a></li>
-</ul>
-</li>
-<li><a href="#压缩和解压指令">压缩和解压指令</a><ul>
-<li><a href="#gizp">gizp</a></li>
-<li><a href="#gunzip">gunzip</a></li>
-<li><a href="#zip">zip</a></li>
-<li><a href="#unzip">unzip</a></li>
-<li><a href="#tar">tar</a></li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/" class="post-title-link" itemprop="url">HDFS高可用(HA)理论概述</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-19 15:39:00" itemprop="dateCreated datePublished" datetime="2020-06-19T15:39:00+08:00">2020-06-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/hadoop/" itemprop="url" rel="index"><span itemprop="name">hadoop</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#ha概述">HA概述</a></li>
-<li><a href="#hdfs-ha的工作机制">HDFS HA的工作机制</a></li>
-<li><a href="#hdfs-ha的工作要点">HDFS HA的工作要点</a></li>
-<li><a href="#hdfs-ha自动故障转移工作机制">HDFS-HA自动故障转移工作机制</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1372,7 +1382,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">20</span>
+          <span class="site-state-item-count">22</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1461,13 +1471,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">46k</span>
+    <span title="站点总字数">57k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">42 分钟</span>
+    <span title="站点阅读时长">52 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
