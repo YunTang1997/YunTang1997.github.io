@@ -20,20 +20,20 @@
     var CONFIG = {"hostname":"yuntang1997.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"livere","storage":true,"lazyload":false,"nav":null,"activeClass":"livere"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="查看文件的所有者 修改文件所有者 修改文件所在的组 改变用户所在组 Linux权限 基本介绍 rwx权限详解">
+  <meta name="description" content="概述 库的管理 表的管理 表的创建 表的修改 表的删除 表的复制">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux组管理和权限管理">
-<meta property="og:url" content="https://yuntang1997.github.io/2020/06/23/Linux%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/index.html">
+<meta property="og:title" content="Mysql定义语言(create、alter、drop)">
+<meta property="og:url" content="https://yuntang1997.github.io/2020/06/28/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80/index.html">
 <meta property="og:site_name" content="YunTang1997の博客">
-<meta property="og:description" content="查看文件的所有者 修改文件所有者 修改文件所在的组 改变用户所在组 Linux权限 基本介绍 rwx权限详解">
+<meta property="og:description" content="概述 库的管理 表的管理 表的创建 表的修改 表的删除 表的复制">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2020-06-23T06:09:00.000Z">
-<meta property="article:modified_time" content="2020-06-23T06:09:00.000Z">
+<meta property="article:published_time" content="2020-06-28T09:21:00.000Z">
+<meta property="article:modified_time" content="2020-06-28T09:21:00.000Z">
 <meta property="article:author" content="YunTang1997">
-<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Mysql">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://yuntang1997.github.io/2020/06/23/Linux%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+<link rel="canonical" href="https://yuntang1997.github.io/2020/06/28/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80/">
 
 
 <script id="page-configurations">
@@ -46,7 +46,7 @@
   };
 </script>
 
-  <title>Linux组管理和权限管理 | YunTang1997の博客</title>
+  <title>Mysql定义语言(create、alter、drop) | YunTang1997の博客</title>
   
 
 
@@ -199,7 +199,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/06/23/Linux%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/06/28/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -212,7 +212,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Linux组管理和权限管理
+          Mysql定义语言(create、alter、drop)
         </h1>
 
         <div class="post-meta">
@@ -222,7 +222,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-06-23 14:09:00" itemprop="dateCreated datePublished" datetime="2020-06-23T14:09:00+08:00">2020-06-23</time>
+              <time title="创建时间：2020-06-28 17:21:00" itemprop="dateCreated datePublished" datetime="2020-06-28T17:21:00+08:00">2020-06-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -230,7 +230,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Linux/" itemprop="url" rel="index"><span itemprop="name">Linux</span></a>
+                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
                 </span>
             </span>
 
@@ -248,14 +248,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
+              <span>1.8k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -270,60 +270,37 @@
         <!-- TOC -->
 
 <ul>
-<li><a href="#查看文件的所有者">查看文件的所有者</a></li>
-<li><a href="#修改文件所有者">修改文件所有者</a></li>
-<li><a href="#修改文件所在的组">修改文件所在的组</a></li>
-<li><a href="#改变用户所在组">改变用户所在组</a></li>
-<li><a href="#linux权限">Linux权限</a><ul>
-<li><a href="#基本介绍">基本介绍</a></li>
-<li><a href="#rwx权限详解">rwx权限详解</a></li>
+<li><a href="#概述">概述</a></li>
+<li><a href="#库的管理">库的管理</a></li>
+<li><a href="#表的管理">表的管理</a><ul>
+<li><a href="#表的创建">表的创建</a></li>
+<li><a href="#表的修改">表的修改</a></li>
+<li><a href="#表的删除">表的删除</a></li>
+<li><a href="#表的复制">表的复制</a></li>
 </ul>
 </li>
 </ul>
 <!-- /TOC -->
+
 <a id="more"></a>
 
-<h2 id="查看文件的所有者"><a href="#查看文件的所有者" class="headerlink" title="查看文件的所有者"></a>查看文件的所有者</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">ls -l<br>ls -al<br>ls –ahl<br></code></pre></td></tr></table></figure>
 <hr>
-<h2 id="修改文件所有者"><a href="#修改文件所有者" class="headerlink" title="修改文件所有者"></a>修改文件所有者</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">chown 用户名 文件名<br></code></pre></td></tr></table></figure>
-<p>&#8195;&#8195;使用root创建一个文件apple.txt，然后将其所有者修改成tom。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs python">su root<br>touch apple.txt<br>chown tom apple.txt<br>ls -al<br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="修改文件所在的组"><a href="#修改文件所在的组" class="headerlink" title="修改文件所在的组"></a>修改文件所在的组</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs python">chgrp 组名 文件名<br></code></pre></td></tr></table></figure>
-<p>&#8195;&#8195;使用root用户创建文件orange.txt，看看当前这个文件属于哪个组，然后将这个文件所在组，修改到police组。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python">su root<br>touch orange.txt<br>ls -al<br>chgrp police orange.txt<br>ls -al<br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="改变用户所在组"><a href="#改变用户所在组" class="headerlink" title="改变用户所在组"></a>改变用户所在组</h2><p>&#8195;&#8195;在添加用户时，可以指定将该用户添加到哪个组中，同样的用 <code>root的管理权限</code>可以改变某个用户所在的组。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">usermod –g 组名 用户名<br>usermod –d 目录名 用户名  <span class="hljs-comment"># 改变该用户登陆的初始目录</span><br></code></pre></td></tr></table></figure>
-<p>&#8195;&#8195;创建一个bandit（土匪组）将tom这个用户从原来所在的police组，修改到 bandit。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs python">groupadd bandit<br>usermod -g bandit tom<br>ls -al<br></code></pre></td></tr></table></figure>
-<hr>
-<h2 id="Linux权限"><a href="#Linux权限" class="headerlink" title="Linux权限"></a>Linux权限</h2><h3 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h3><blockquote>
-<p>-rwxrw-r– 1 root police 1213 Feb 2 09:39 abc.txt</p>
-</blockquote>
-<p>&#8195;&#8195;<strong>说明：</strong></p>
-<ol>
-<li><code>第0位</code>确定文件类型（说明：<code>-:普通文件</code>，<code>d:目录</code>，<code>l: 连接文件</code>，<code>c: 字符设备文件[键盘,鼠标]</code>， <code>b: 块设备文件[硬盘]</code>）。</li>
-<li><code>第1-3位</code>确定<code>所有者</code>（该文件的所有者）拥有该文件的权限。<code>r：读</code> ， <code>w：写权限</code>，<code>x：执行权限</code>。  </li>
-<li><code>第4-6位</code>确定<code>所属组</code>（同用户组的）拥有该文件的权限。</li>
-<li><code>第7-9位</code>确定<code>其他用户</code>拥有该文件的权限。 </li>
-<li><code>1</code>：如果是<code>文件</code>，表示<code>硬链接的数目</code>， 如果是<code>目录</code>，则表示<code>有多少个子目录</code>。</li>
-<li><code>1213</code>： 表示<code>文件大小（字节）</code>，如果是<code>目录</code>，则统一为<code>4096</code>字节。</li>
-<li><code>其余内容</code>：<code>最后修改时间</code>和<code>文件名</code>。</li>
-</ol>
-<hr>
-<h3 id="rwx权限详解"><a href="#rwx权限详解" class="headerlink" title="rwx权限详解"></a>rwx权限详解</h3><p>&#8195;&#8195;<strong>rwx作用到<code>文件</code>：</strong></p>
-<ol>
-<li>[r]代表可读(read): 可以读取，查看。</li>
-<li>[w]代表可写(write): <code>可以修改，但是不代表可以删除该文件，删除一个文件的前提条件是对该文件所在的目录有写权限，才能删除该文件</code>。</li>
-<li>[x]代表可执行(execute):可以被执行。<br>&#8195;&#8195;<strong>rwx作用到<code>目录</code>：</strong></li>
-<li>[r]代表可读(read): 可以读取，ls查看目录内容。</li>
-<li>[w]代表可写(write): 可以修改，目录内创建 + 删除 + 重命名目录。</li>
-<li>[x]代表可执行(execute):可以进入该目录。 </li>
-</ol>
-<ul>
-<li><font color="red">注意rwx可用数字表示为：r = 4，w = 2，x = 1 因此rwx = 4 + 2 + 1 = 7</font>。</li>
+<h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><ul>
+<li>创建：create</li>
+<li>修改：alter</li>
+<li>删除：drop</li>
 </ul>
+<hr>
+<h2 id="库的管理"><a href="#库的管理" class="headerlink" title="库的管理"></a>库的管理</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 1、库的创建</span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">语法:</span><br><span class="hljs-comment">creat database [if not exists] 库名;</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-comment">-- 案例：创建库books</span><br><span class="hljs-comment">-- 方式一</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> books;<br><br><span class="hljs-comment">-- 方式二（增加容错）</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span> books;<br><br><br><span class="hljs-comment">-- 2、库的修改</span><br><span class="hljs-comment">-- 修改库名</span><br><span class="hljs-comment">-- 以前的写法，现在不建议（会导致数据的丢失，可以直接关闭mysql服务，然后去data文件夹改）：</span><br><span class="hljs-comment">-- RENAME DATABASE books TO 新库名;</span><br><br><span class="hljs-comment">-- 更改库的字符集</span><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">DATABASE</span> books <span class="hljs-built_in">CHARACTER</span> <br><span class="hljs-keyword">SET</span> gbk;<br><br><br><span class="hljs-comment">-- 3、库的删除</span><br><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">DATABASE</span> books;<br><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">DATABASE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> books;<br></code></pre></td></tr></table></figure>
+<hr>
+<h2 id="表的管理"><a href="#表的管理" class="headerlink" title="表的管理"></a>表的管理</h2><h3 id="表的创建"><a href="#表的创建" class="headerlink" title="表的创建"></a>表的创建</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment">语法：</span><br><span class="hljs-comment">create table 表名(</span><br><span class="hljs-comment">		列名 列的类型[（长度）约束],</span><br><span class="hljs-comment">		列名 列的类型[（长度）约束],</span><br><span class="hljs-comment">		列名 列的类型[（长度）约束],</span><br><span class="hljs-comment">		...</span><br><span class="hljs-comment">		列名 列的类型[（长度）约束]</span><br><span class="hljs-comment">);</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">-- 案例：创建表book</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> [<span class="hljs-keyword">IF</span> <span class="hljs-keyword">NOT</span> <span class="hljs-keyword">EXISTS</span>] book(<br>            <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span>, <span class="hljs-comment"># 编号</span><br>            b_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>), <span class="hljs-comment"># 图书名</span><br>            price <span class="hljs-keyword">DOUBLE</span>, <span class="hljs-comment"># 价格</span><br>            authorId <span class="hljs-built_in">INT</span>,  <span class="hljs-comment"># 作者Id</span><br>            publishDate DATETIME <span class="hljs-comment"># 出版日期</span><br>			<br>);<br><br>DESC book;<br><br><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> author(<br>            <span class="hljs-keyword">id</span> <span class="hljs-built_in">INT</span>,<br>            au_name <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>),<br>            nation <span class="hljs-built_in">VARCHAR</span>(<span class="hljs-number">20</span>)<br>);<br><br>DESC author;<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="表的修改"><a href="#表的修改" class="headerlink" title="表的修改"></a>表的修改</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">/*</span><br><span class="hljs-comment">alter table 表名 [change|modify|add|drop|rename to] column 列名 列类型 约束</span><br><span class="hljs-comment">修改列名</span><br><span class="hljs-comment">修改列的类型或约束</span><br><span class="hljs-comment">添加新列</span><br><span class="hljs-comment">删除列</span><br><span class="hljs-comment">修改表名</span><br><span class="hljs-comment">*/</span><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> book <span class="hljs-keyword">CHANGE</span> <span class="hljs-keyword">COLUMN</span> publishDate pubDate DATETIME; <span class="hljs-comment"># 修改列名</span><br>DESC book;<br><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> book <span class="hljs-keyword">MODIFY</span> <span class="hljs-keyword">COLUMN</span> pubDate <span class="hljs-built_in">TIMESTAMP</span>; <span class="hljs-comment"># 修改pubDate列的类型为时间戳</span><br>DESC book;<br><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> author <span class="hljs-keyword">ADD</span> <span class="hljs-keyword">COLUMN</span> annual <span class="hljs-keyword">DOUBLE</span>; <span class="hljs-comment"># 添加新的列</span><br>DESC author;<br><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> author <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">COLUMN</span> annual; <span class="hljs-comment"># 列的删除</span><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> author <span class="hljs-keyword">DROP</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> annual;<br>DESC author;<br><br><span class="hljs-keyword">ALTER</span> <span class="hljs-keyword">TABLE</span> author <span class="hljs-keyword">RENAME</span> <span class="hljs-keyword">TO</span> book_author; <span class="hljs-comment"># 修改表名</span><br>DESC book_author;<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="表的删除"><a href="#表的删除" class="headerlink" title="表的删除"></a>表的删除</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-comment">-- 通用写法：</span><br><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">DATABASE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> 旧库名;<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> 新库名;<br><br><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> 旧表名;<br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">DATABASE</span> 新表名;<br><br><span class="hljs-comment">-- 举例：</span><br><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> book_author;<br><span class="hljs-keyword">DROP</span> <span class="hljs-keyword">TABLE</span> <span class="hljs-keyword">IF</span> <span class="hljs-keyword">EXISTS</span> book_author;<br></code></pre></td></tr></table></figure>
+<hr>
+<h3 id="表的复制"><a href="#表的复制" class="headerlink" title="表的复制"></a>表的复制</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">INSERT</span> <span class="hljs-keyword">INTO</span> book_author <br><span class="hljs-keyword">VALUES</span>(<span class="hljs-number">1</span>, <span class="hljs-string">'村上村树'</span>, <span class="hljs-string">'日本'</span>),<br>(<span class="hljs-number">2</span>, <span class="hljs-string">'莫言'</span>, <span class="hljs-string">'中国'</span>),<br>(<span class="hljs-number">3</span>, <span class="hljs-string">'冯唐'</span>, <span class="hljs-string">'中国'</span>),<br>(<span class="hljs-number">4</span>, <span class="hljs-string">'金庸'</span>, <span class="hljs-string">'中国'</span>);<br><br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> book_author;<br><br><span class="hljs-comment">-- 仅仅复制表的结构</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> copy <span class="hljs-keyword">LIKE</span> book_author;<br><br><span class="hljs-comment">-- 复制表的结构+数据</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> copy2 <br><span class="hljs-keyword">SELECT</span> * <span class="hljs-keyword">FROM</span> book_author;<br><br><span class="hljs-comment">-- 复制表的结构+部分数据</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> copy3 <br><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span>, au_name <br><span class="hljs-keyword">FROM</span> book_author <br><span class="hljs-keyword">WHERE</span> nation = <span class="hljs-string">'中国'</span>;<br>	<br><span class="hljs-comment">-- 复制表的部分结构（where条件判断为false即可，即不选中任何数据）</span><br><span class="hljs-keyword">CREATE</span> <span class="hljs-keyword">TABLE</span> copy4 <br><span class="hljs-keyword">SELECT</span> <span class="hljs-keyword">id</span>, au_name<br><span class="hljs-keyword">FROM</span> book_author<br><span class="hljs-keyword">WHERE</span> <span class="hljs-number">0</span>;<br></code></pre></td></tr></table></figure>
+<hr>
 
     </div>
     
@@ -358,7 +335,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="https://yuntang1997.github.io/2020/06/23/Linux%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="Linux组管理和权限管理">https://yuntang1997.github.io/2020/06/23/Linux组管理和权限管理/</a>
+    <a href="https://yuntang1997.github.io/2020/06/28/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80/" title="Mysql定义语言(create、alter、drop)">https://yuntang1997.github.io/2020/06/28/Mysql定义语言/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -398,7 +375,7 @@
       <footer class="post-footer">
           
           <div class="post-tags">
-              <a href="/tags/Linux/" rel="tag"><i class="fa fa-tag"></i> Linux</a>
+              <a href="/tags/Mysql/" rel="tag"><i class="fa fa-tag"></i> Mysql</a>
           </div>
 
         
@@ -407,12 +384,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" rel="prev" title="Linux常用命令">
-      <i class="fa fa-chevron-left"></i> Linux常用命令
+    <a href="/2020/06/28/Mysql%E7%B4%A2%E5%BC%95/" rel="prev" title="Mysql索引">
+      <i class="fa fa-chevron-left"></i> Mysql索引
     </a></div>
       <div class="post-nav-item">
-    <a href="/2020/06/23/Linux%20crond%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/" rel="next" title="Linux crond任务调度">
-      Linux crond任务调度 <i class="fa fa-chevron-right"></i>
+    <a href="/2020/06/30/Mysql_explain/" rel="next" title="Mysql explain">
+      Mysql explain <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -477,7 +454,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#查看文件的所有者"><span class="nav-number">1.</span> <span class="nav-text">查看文件的所有者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件所有者"><span class="nav-number">2.</span> <span class="nav-text">修改文件所有者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改文件所在的组"><span class="nav-number">3.</span> <span class="nav-text">修改文件所在的组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改变用户所在组"><span class="nav-number">4.</span> <span class="nav-text">改变用户所在组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Linux权限"><span class="nav-number">5.</span> <span class="nav-text">Linux权限</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本介绍"><span class="nav-number">5.1.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rwx权限详解"><span class="nav-number">5.2.</span> <span class="nav-text">rwx权限详解</span></a></li></ol></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#库的管理"><span class="nav-number">2.</span> <span class="nav-text">库的管理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#表的管理"><span class="nav-number">3.</span> <span class="nav-text">表的管理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#表的创建"><span class="nav-number">3.1.</span> <span class="nav-text">表的创建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表的修改"><span class="nav-number">3.2.</span> <span class="nav-text">表的修改</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表的删除"><span class="nav-number">3.3.</span> <span class="nav-text">表的删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#表的复制"><span class="nav-number">3.4.</span> <span class="nav-text">表的复制</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
