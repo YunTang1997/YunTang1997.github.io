@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuntang1997.github.io/"/>
-  <updated>2020-07-08T06:53:00.000Z</updated>
+  <updated>2020-07-12T12:27:00.000Z</updated>
   <id>https://yuntang1997.github.io/</id>
   
   <author>
@@ -15,6 +15,39 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Mysql变量</title>
+    <link href="https://yuntang1997.github.io/2020/07/12/Mysql%E5%8F%98%E9%87%8F/"/>
+    <id>https://yuntang1997.github.io/2020/07/12/Mysql%E5%8F%98%E9%87%8F/</id>
+    <published>2020-07-12T12:27:00.000Z</published>
+    <updated>2020-07-12T12:27:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#系统变量&quot;&gt;系统变量&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#自定义变量&quot;&gt;自定义变量&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#用户变量&quot;&gt;用户变量&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#局部变量&quot;&gt;局部变量&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#用户变量和局部变量的对比&quot;&gt;用户变量和局部变量的对比&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
   
   <entry>
     <title>Java链表</title>
@@ -589,6 +622,104 @@
   </entry>
   
   <entry>
+    <title>Mysq流程控制结构</title>
+    <link href="https://yuntang1997.github.io/2020/06/17/Mysql%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/"/>
+    <id>https://yuntang1997.github.io/2020/06/17/Mysql%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/</id>
+    <published>2020-06-17T07:13:00.000Z</published>
+    <updated>2020-06-17T07:13:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#分支结构&quot;&gt;分支结构&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#案例&quot;&gt;案例&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#循环结构&quot;&gt;循环结构&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#案例-1&quot;&gt;案例&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#经典案例&quot;&gt;经典案例&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql函数</title>
+    <link href="https://yuntang1997.github.io/2020/06/17/Mysql%E5%87%BD%E6%95%B0/"/>
+    <id>https://yuntang1997.github.io/2020/06/17/Mysql%E5%87%BD%E6%95%B0/</id>
+    <published>2020-06-17T03:04:00.000Z</published>
+    <updated>2020-06-17T03:04:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#含义&quot;&gt;含义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#函数和存储过程的区别&quot;&gt;函数和存储过程的区别&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#创建语法&quot;&gt;创建语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#调用语法&quot;&gt;调用语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#案例&quot;&gt;案例&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#查看函数过程&quot;&gt;查看函数过程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#删除函数&quot;&gt;删除函数&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Mysql存储过程</title>
+    <link href="https://yuntang1997.github.io/2020/06/17/Mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/"/>
+    <id>https://yuntang1997.github.io/2020/06/17/Mysql%E5%AD%98%E5%82%A8%E8%BF%87%E7%A8%8B/</id>
+    <published>2020-06-17T00:13:00.000Z</published>
+    <updated>2020-06-17T00:13:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#含义&quot;&gt;含义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#创建语法&quot;&gt;创建语法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#调用方法&quot;&gt;调用方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#使用案例&quot;&gt;使用案例&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#带in模式的存储过程&quot;&gt;带in模式的存储过程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#带out模式的存储过程&quot;&gt;带out模式的存储过程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#带inout模式的存储过程&quot;&gt;带inout模式的存储过程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#删除存储过程&quot;&gt;删除存储过程&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#查看存储过程的信息&quot;&gt;查看存储过程的信息&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#注意&quot;&gt;注意&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
+    
+    
+      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
+    
+  </entry>
+  
+  <entry>
     <title>Mysql常见约束</title>
     <link href="https://yuntang1997.github.io/2020/06/15/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(%E5%B8%B8%E8%A7%81%E7%BA%A6%E6%9D%9F)/"/>
     <id>https://yuntang1997.github.io/2020/06/15/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(%E5%B8%B8%E8%A7%81%E7%BA%A6%E6%9D%9F)/</id>
@@ -645,143 +776,6 @@
 &lt;li&gt;&lt;a href=&quot;#删除视图&quot;&gt;删除视图&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#查看视图&quot;&gt;查看视图&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#视图的更新&quot;&gt;视图的更新&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysql标识列</title>
-    <link href="https://yuntang1997.github.io/2020/06/11/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(%E6%A0%87%E8%AF%86%E5%88%97)/"/>
-    <id>https://yuntang1997.github.io/2020/06/11/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(%E6%A0%87%E8%AF%86%E5%88%97)/</id>
-    <published>2020-06-11T05:31:00.000Z</published>
-    <updated>2020-06-11T05:31:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#创建表时设置标识列&quot;&gt;创建表时设置标识列&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改表时设置标识列&quot;&gt;修改表时设置标识列&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改表时删除标识列&quot;&gt;修改表时删除标识列&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysql常见的数据类型</title>
-    <link href="https://yuntang1997.github.io/2020/06/09/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)/"/>
-    <id>https://yuntang1997.github.io/2020/06/09/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(%E5%B8%B8%E8%A7%81%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B)/</id>
-    <published>2020-06-09T09:21:00.000Z</published>
-    <updated>2020-06-09T09:21:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#常见的数据类型&quot;&gt;常见的数据类型&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#整型&quot;&gt;整型&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#小数&quot;&gt;小数&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#字符型&quot;&gt;字符型&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#较短的文本&quot;&gt;较短的文本&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#较长的文本&quot;&gt;较长的文本&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#其他&quot;&gt;其他&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#日期型&quot;&gt;日期型&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysql定义语言(create、alter、drop)</title>
-    <link href="https://yuntang1997.github.io/2020/06/08/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(create%E3%80%81alter%E3%80%81drop)/"/>
-    <id>https://yuntang1997.github.io/2020/06/08/Mysql%E5%AE%9A%E4%B9%89%E8%AF%AD%E8%A8%80(create%E3%80%81alter%E3%80%81drop)/</id>
-    <published>2020-06-08T09:21:00.000Z</published>
-    <updated>2020-06-08T09:21:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#库的管理&quot;&gt;库的管理&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#表的管理&quot;&gt;表的管理&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#表的创建&quot;&gt;表的创建&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#表的修改&quot;&gt;表的修改&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#表的删除&quot;&gt;表的删除&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#表的复制&quot;&gt;表的复制&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysql操作语言(insert、update、delete)</title>
-    <link href="https://yuntang1997.github.io/2020/06/07/Mysql%E6%93%8D%E4%BD%9C%E8%AF%AD%E8%A8%80/"/>
-    <id>https://yuntang1997.github.io/2020/06/07/Mysql%E6%93%8D%E4%BD%9C%E8%AF%AD%E8%A8%80/</id>
-    <published>2020-06-07T06:53:00.000Z</published>
-    <updated>2020-06-07T06:53:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#插入语言&quot;&gt;插入语言&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#方式一&quot;&gt;方式一&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#方式二&quot;&gt;方式二&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#两种方式的差异&quot;&gt;两种方式的差异&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改语句&quot;&gt;修改语句&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#删除语句&quot;&gt;删除语句&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#方式一-1&quot;&gt;方式一&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#方式二-1&quot;&gt;方式二&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#两种方式的差异面试题&quot;&gt;两种方式的差异（面试题）&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;/ul&gt;
 &lt;!-- /TOC --&gt;
     
