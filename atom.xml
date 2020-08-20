@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://yuntang1997.github.io/"/>
-  <updated>2020-08-18T07:32:00.000Z</updated>
+  <updated>2020-08-20T14:59:00.000Z</updated>
   <id>https://yuntang1997.github.io/</id>
   
   <author>
@@ -15,6 +15,284 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>剖析面试最常见问题之Java集合框架</title>
+    <link href="https://yuntang1997.github.io/2020/08/20/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/"/>
+    <id>https://yuntang1997.github.io/2020/08/20/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/</id>
+    <published>2020-08-20T14:59:00.000Z</published>
+    <updated>2020-08-20T14:59:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-剖析面试最常见问题之-java-集合框架&quot;&gt;1. 剖析面试最常见问题之 Java 集合框架&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#11-集合概述&quot;&gt;1.1. 集合概述&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#111-java-集合概览&quot;&gt;1.1.1. Java 集合概览&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#112-说说-listsetmap-三者的区别&quot;&gt;1.1.2. 说说 List,Set,Map 三者的区别？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#113-集合框架底层数据结构总结&quot;&gt;1.1.3. 集合框架底层数据结构总结&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1131-list&quot;&gt;1.1.3.1. List&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1132-set&quot;&gt;1.1.3.2. Set&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1133-map&quot;&gt;1.1.3.3. Map&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#114-如何选用集合&quot;&gt;1.1.4. 如何选用集合?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#115-为什么要使用集合&quot;&gt;1.1.5. 为什么要使用集合？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#116-iterator-迭代器&quot;&gt;1.1.6. Iterator 迭代器&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1161-迭代器-iterator-是什么&quot;&gt;1.1.6.1. 迭代器 Iterator 是什么？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1162-迭代器-iterator-有啥用&quot;&gt;1.1.6.2. 迭代器 Iterator 有啥用？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1163-如何使用&quot;&gt;1.1.6.3. 如何使用？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#117-有哪些集合是线程不安全的怎么解决呢&quot;&gt;1.1.7. 有哪些集合是线程不安全的？怎么解决呢？&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#12-collection-子接口之-list&quot;&gt;1.2. Collection 子接口之 List&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#121-arraylist-和-vector-的区别&quot;&gt;1.2.1. Arraylist 和 Vector 的区别?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#122-arraylist-与-linkedlist-区别&quot;&gt;1.2.2. Arraylist 与 LinkedList 区别?&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1221-补充内容双向链表和双向循环链表&quot;&gt;1.2.2.1. 补充内容:双向链表和双向循环链表&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1222-补充内容randomaccess-接口&quot;&gt;1.2.2.2. 补充内容:RandomAccess 接口&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#123-说一说-arraylist-的扩容机制吧&quot;&gt;1.2.3. 说一说 ArrayList 的扩容机制吧&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#13-collection-子接口之-set&quot;&gt;1.3. Collection 子接口之 Set&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#131-comparable-和-comparator-的区别&quot;&gt;1.3.1. comparable 和 Comparator 的区别&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1311-comparator-定制排序&quot;&gt;1.3.1.1. Comparator 定制排序&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1312-重写-compareto-方法实现按年龄来排序&quot;&gt;1.3.1.2. 重写 compareTo 方法实现按年龄来排序&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#132-无序性和不可重复性的含义是什么&quot;&gt;1.3.2. 无序性和不可重复性的含义是什么&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#133-比较-hashsetlinkedhashset-和-treeset-三者的异同&quot;&gt;1.3.3. 比较 HashSet、LinkedHashSet 和 TreeSet 三者的异同&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#14-map-接口&quot;&gt;1.4. Map 接口&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#141-hashmap-和-hashtable-的区别&quot;&gt;1.4.1. HashMap 和 Hashtable 的区别&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#142-hashmap-和-hashset-区别&quot;&gt;1.4.2. HashMap 和 HashSet 区别&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#143-hashmap-和-treemap-区别&quot;&gt;1.4.3. HashMap 和 TreeMap 区别&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#144-hashset-如何检查重复&quot;&gt;1.4.4. HashSet 如何检查重复&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#145-hashmap-的底层实现&quot;&gt;1.4.5. HashMap 的底层实现&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1451-jdk18-之前&quot;&gt;1.4.5.1. JDK1.8 之前&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1452-jdk18-之后&quot;&gt;1.4.5.2. JDK1.8 之后&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#146-hashmap-的长度为什么是-2-的幂次方&quot;&gt;1.4.6. HashMap 的长度为什么是 2 的幂次方&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#147-hashmap-多线程操作导致死循环问题&quot;&gt;1.4.7. HashMap 多线程操作导致死循环问题&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#148-hashmap-有哪几种常见的遍历方式&quot;&gt;1.4.8. HashMap 有哪几种常见的遍历方式?&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#149-concurrenthashmap-和-hashtable-的区别&quot;&gt;1.4.9. ConcurrentHashMap 和 Hashtable 的区别&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1410-concurrenthashmap-线程安全的具体实现方式底层具体实现&quot;&gt;1.4.10. ConcurrentHashMap 线程安全的具体实现方式/底层具体实现&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#14101-jdk17上面有示意图&quot;&gt;1.4.10.1. JDK1.7（上面有示意图）&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#14102-jdk18-上面有示意图&quot;&gt;1.4.10.2. JDK1.8 （上面有示意图）&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#15-collections-工具类&quot;&gt;1.5. Collections 工具类&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#151-排序操作&quot;&gt;1.5.1. 排序操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#152-查找替换操作&quot;&gt;1.5.2. 查找,替换操作&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#153-同步控制&quot;&gt;1.5.3. 同步控制&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#16-其他重要问题&quot;&gt;1.6. 其他重要问题&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#161-什么是快速失败fail-fast&quot;&gt;1.6.1. 什么是快速失败(fail-fast)？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#162-什么是安全失败fail-safe呢&quot;&gt;1.6.2. 什么是安全失败(fail-safe)呢？&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#163-arraysaslist避坑指南&quot;&gt;1.6.3. Arrays.asList()避坑指南&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1631-简介&quot;&gt;1.6.3.1. 简介&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1632-阿里巴巴-java-开发手册对其的描述&quot;&gt;1.6.3.2. 《阿里巴巴 Java 开发手册》对其的描述&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#1633-使用时的注意事项总结&quot;&gt;1.6.3.3. 使用时的注意事项总结&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java抽象类的构造函数</title>
+    <link href="https://yuntang1997.github.io/2020/08/20/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/"/>
+    <id>https://yuntang1997.github.io/2020/08/20/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/</id>
+    <published>2020-08-20T10:46:00.000Z</published>
+    <updated>2020-08-20T10:46:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#作用&quot;&gt;作用&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#说明&quot;&gt;说明&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Super关键字</title>
+    <link href="https://yuntang1997.github.io/2020/08/20/Super%E5%85%B3%E9%94%AE%E5%AD%97/"/>
+    <id>https://yuntang1997.github.io/2020/08/20/Super%E5%85%B3%E9%94%AE%E5%AD%97/</id>
+    <published>2020-08-20T09:30:00.000Z</published>
+    <updated>2020-08-20T09:30:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#调用属性和方法&quot;&gt;调用属性和方法&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#调用构造器&quot;&gt;调用构造器&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#说明&quot;&gt;说明&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java单例设计模式</title>
+    <link href="https://yuntang1997.github.io/2020/08/20/Java%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/"/>
+    <id>https://yuntang1997.github.io/2020/08/20/Java%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</id>
+    <published>2020-08-20T07:38:00.000Z</published>
+    <updated>2020-08-20T07:38:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#设计模式&quot;&gt;设计模式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#单例模式&quot;&gt;单例模式&lt;/a&gt;&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#饿汉式&quot;&gt;饿汉式&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#懒汉式线程不安全&quot;&gt;懒汉式(线程不安全)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#懒汉式线程安全&quot;&gt;懒汉式(线程安全)&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#单例模式的优点&quot;&gt;单例模式的优点&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java泛型</title>
+    <link href="https://yuntang1997.github.io/2020/08/20/Java%E6%B3%9B%E5%9E%8B/"/>
+    <id>https://yuntang1997.github.io/2020/08/20/Java%E6%B3%9B%E5%9E%8B/</id>
+    <published>2020-08-20T02:59:00.000Z</published>
+    <updated>2020-08-20T02:59:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#定义&quot;&gt;定义&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#泛型的好处&quot;&gt;泛型的好处&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#集合中使用泛型&quot;&gt;集合中使用泛型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#自定义泛型&quot;&gt;自定义泛型&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#泛型在继承上的体现&quot;&gt;泛型在继承上的体现&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java重载与重写</title>
+    <link href="https://yuntang1997.github.io/2020/08/20/Java%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99/"/>
+    <id>https://yuntang1997.github.io/2020/08/20/Java%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99/</id>
+    <published>2020-08-20T01:11:00.000Z</published>
+    <updated>2020-08-20T01:11:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;!-- TOC --&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#重载overload&quot;&gt;重载(overload)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#重写override&quot;&gt;重写(override)&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#说明&quot;&gt;说明&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- /TOC --&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>抽象类和接口的区别</title>
+    <link href="https://yuntang1997.github.io/2020/08/19/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://yuntang1997.github.io/2020/08/19/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2020-08-19T09:30:00.000Z</published>
+    <updated>2020-08-19T09:30:00.000Z</updated>
+    
+    <summary type="html">
+    
+      &lt;ol&gt;
+&lt;li&gt;接口的方法没有方法体（JDK1.8之前），JDK1.8开始也有的方法体（&lt;code&gt;静态方法&lt;/code&gt;：使用 &lt;code&gt;static&lt;/code&gt;关键字修饰。可以通过&lt;code&gt;接口&lt;/code&gt;直接调用静态方法，并执行其方法体；&lt;code&gt;默认方法&lt;/code&gt;：使用&lt;code&gt;default&lt;/code&gt;关键字修饰。可以通过&lt;code&gt;实现类&lt;/code&gt;对象来调用。），而抽象类可以有非抽象的方法（有方法体）。&lt;/li&gt;
+&lt;li&gt;接口的方法的访问修饰符都是public（默认public abstarct修饰），抽象类的抽象方法可以有public、protected和default这些修饰符。&lt;/li&gt;
+&lt;li&gt;抽象类中可以有普通成员变量，接口中没有普通成员变量，只有常量（默认public static final修饰）。&lt;/li&gt;
+&lt;li&gt;一个类可以实现多个接口，但只能实现一个抽象类。&lt;/li&gt;
+&lt;li&gt;抽象类可以有构造器，只是抽象类的构造器不能直接调用，但是其子类可以在构造函数中调用其父类（抽象类）的构造函数，接口&lt;strong&gt;没有构造器&lt;/strong&gt;。&lt;/li&gt;&lt;/ol&gt;
+    
+    </summary>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/categories/Java/"/>
+    
+    
+      <category term="Java" scheme="https://yuntang1997.github.io/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>Java比较器</title>
@@ -511,267 +789,6 @@
     
     
       <category term="Linux" scheme="https://yuntang1997.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux组管理和权限管理</title>
-    <link href="https://yuntang1997.github.io/2020/06/23/%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"/>
-    <id>https://yuntang1997.github.io/2020/06/23/%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</id>
-    <published>2020-06-23T08:41:05.493Z</published>
-    <updated>2020-06-23T08:41:05.493Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#查看文件的所有者&quot;&gt;查看文件的所有者&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改文件所有者&quot;&gt;修改文件所有者&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改文件所在的组&quot;&gt;修改文件所在的组&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#改变用户所在组&quot;&gt;改变用户所在组&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#linux权限&quot;&gt;Linux权限&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#基本介绍&quot;&gt;基本介绍&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#rwx权限详解&quot;&gt;rwx权限详解&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改权限&quot;&gt;修改权限&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#方式一通过---变更权限&quot;&gt;方式一（通过+ 、-、= 变更权限）&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#方式二通过数字变更权限&quot;&gt;方式二（通过数字变更权限）&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux磁盘分区、挂载</title>
-    <link href="https://yuntang1997.github.io/2020/06/23/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/"/>
-    <id>https://yuntang1997.github.io/2020/06/23/Linux%E7%A3%81%E7%9B%98%E5%88%86%E5%8C%BA%E3%80%81%E6%8C%82%E8%BD%BD/</id>
-    <published>2020-06-23T08:41:00.000Z</published>
-    <updated>2020-06-23T08:41:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#linux分区&quot;&gt;Linux分区&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#原理介绍&quot;&gt;原理介绍&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#硬盘说明&quot;&gt;硬盘说明&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#查看所有设备光驱mediau盘硬盘挂载情况&quot;&gt;查看所有设备(光驱/media，u盘，硬盘)挂载情况&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#案例向linux虚拟机中添加一块新硬盘&quot;&gt;案例（向Linux虚拟机中添加一块新硬盘）&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#虚拟机添加硬盘&quot;&gt;虚拟机添加硬盘&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#分区&quot;&gt;分区&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#格式化&quot;&gt;格式化&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#挂载&quot;&gt;挂载&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#设置自动挂载&quot;&gt;设置自动挂载&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#磁盘情况查询&quot;&gt;磁盘情况查询&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#查询系统整体磁盘使用情况&quot;&gt;查询系统整体磁盘使用情况&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#查询指定目录的磁盘占用情况&quot;&gt;查询指定目录的磁盘占用情况&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#磁盘工作实用指令&quot;&gt;磁盘工作实用指令&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux crond任务调度</title>
-    <link href="https://yuntang1997.github.io/2020/06/23/Linux%20crond%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/"/>
-    <id>https://yuntang1997.github.io/2020/06/23/Linux%20crond%E4%BB%BB%E5%8A%A1%E8%B0%83%E5%BA%A6/</id>
-    <published>2020-06-23T07:42:00.000Z</published>
-    <updated>2020-06-23T07:42:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#基本语法&quot;&gt;基本语法&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#举例说明&quot;&gt;举例说明&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#5个占位符&quot;&gt;5个占位符&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#参数细节&quot;&gt;参数细节&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#特定时间执行任务案例&quot;&gt;特定时间执行任务案例&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#任务调度应用实例&quot;&gt;任务调度应用实例&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux组管理和权限管理</title>
-    <link href="https://yuntang1997.github.io/2020/06/23/Linux%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/"/>
-    <id>https://yuntang1997.github.io/2020/06/23/Linux%E7%BB%84%E7%AE%A1%E7%90%86%E5%92%8C%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/</id>
-    <published>2020-06-23T06:09:00.000Z</published>
-    <updated>2020-06-23T06:09:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#查看文件的所有者&quot;&gt;查看文件的所有者&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改文件所有者&quot;&gt;修改文件所有者&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#修改文件所在的组&quot;&gt;修改文件所在的组&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#改变用户所在组&quot;&gt;改变用户所在组&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#linux权限&quot;&gt;Linux权限&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#基本介绍&quot;&gt;基本介绍&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#rwx权限详解&quot;&gt;rwx权限详解&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Linux常用命令</title>
-    <link href="https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
-    <id>https://yuntang1997.github.io/2020/06/22/Linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</id>
-    <published>2020-06-22T08:30:00.000Z</published>
-    <updated>2020-06-22T08:30:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#开机重启和用户登录&quot;&gt;开机、重启和用户登录&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#用户注销&quot;&gt;用户注销&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#用户管理&quot;&gt;用户管理&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#用户组管理&quot;&gt;用户组管理&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#用户和组的相关文件&quot;&gt;用户和组的相关文件&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#指定运行级别&quot;&gt;指定运行级别&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#应用&quot;&gt;应用&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#帮助指令&quot;&gt;帮助指令&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#文件目录指令&quot;&gt;文件目录指令&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#日期时间指令&quot;&gt;日期时间指令&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#搜索查找指令&quot;&gt;搜索查找指令&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#find&quot;&gt;find&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#locate&quot;&gt;locate&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#grep&quot;&gt;grep&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#压缩和解压指令&quot;&gt;压缩和解压指令&lt;/a&gt;&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#gizp&quot;&gt;gizp&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#gunzip&quot;&gt;gunzip&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#zip&quot;&gt;zip&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#unzip&quot;&gt;unzip&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#tar&quot;&gt;tar&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/categories/Linux/"/>
-    
-    
-      <category term="Linux" scheme="https://yuntang1997.github.io/tags/Linux/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>HDFS高可用(HA)理论概述</title>
-    <link href="https://yuntang1997.github.io/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/"/>
-    <id>https://yuntang1997.github.io/2020/06/19/HDFS%E9%AB%98%E5%8F%AF%E7%94%A8%E7%90%86%E8%AE%BA%E6%A6%82%E8%BF%B0/</id>
-    <published>2020-06-19T07:39:00.000Z</published>
-    <updated>2020-06-19T07:39:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#ha概述&quot;&gt;HA概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#hdfs-ha的工作机制&quot;&gt;HDFS HA的工作机制&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#hdfs-ha的工作要点&quot;&gt;HDFS HA的工作要点&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#hdfs-ha自动故障转移工作机制&quot;&gt;HDFS-HA自动故障转移工作机制&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="hadoop" scheme="https://yuntang1997.github.io/categories/hadoop/"/>
-    
-    
-      <category term="hadoop" scheme="https://yuntang1997.github.io/tags/hadoop/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Mysq流程控制结构</title>
-    <link href="https://yuntang1997.github.io/2020/06/17/Mysql%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/"/>
-    <id>https://yuntang1997.github.io/2020/06/17/Mysql%E6%B5%81%E7%A8%8B%E6%8E%A7%E5%88%B6%E7%BB%93%E6%9E%84/</id>
-    <published>2020-06-17T07:13:00.000Z</published>
-    <updated>2020-06-17T07:13:00.000Z</updated>
-    
-    <summary type="html">
-    
-      &lt;!-- TOC --&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&quot;#概述&quot;&gt;概述&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#分支结构&quot;&gt;分支结构&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#案例&quot;&gt;案例&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#循环结构&quot;&gt;循环结构&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#案例-1&quot;&gt;案例&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#经典案例&quot;&gt;经典案例&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;!-- /TOC --&gt;
-    
-    </summary>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/categories/Mysql/"/>
-    
-    
-      <category term="Mysql" scheme="https://yuntang1997.github.io/tags/Mysql/"/>
     
   </entry>
   

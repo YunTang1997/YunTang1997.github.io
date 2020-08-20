@@ -137,7 +137,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">43</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">50</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -193,6 +193,760 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/20/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/" class="post-title-link" itemprop="url">剖析面试最常见问题之Java集合框架</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-20 22:59:00" itemprop="dateCreated datePublished" datetime="2020-08-20T22:59:00+08:00">2020-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>22k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>20 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#1-剖析面试最常见问题之-java-集合框架">1. 剖析面试最常见问题之 Java 集合框架</a><ul>
+<li><a href="#11-集合概述">1.1. 集合概述</a><ul>
+<li><a href="#111-java-集合概览">1.1.1. Java 集合概览</a></li>
+<li><a href="#112-说说-listsetmap-三者的区别">1.1.2. 说说 List,Set,Map 三者的区别？</a></li>
+<li><a href="#113-集合框架底层数据结构总结">1.1.3. 集合框架底层数据结构总结</a><ul>
+<li><a href="#1131-list">1.1.3.1. List</a></li>
+<li><a href="#1132-set">1.1.3.2. Set</a></li>
+<li><a href="#1133-map">1.1.3.3. Map</a></li>
+</ul>
+</li>
+<li><a href="#114-如何选用集合">1.1.4. 如何选用集合?</a></li>
+<li><a href="#115-为什么要使用集合">1.1.5. 为什么要使用集合？</a></li>
+<li><a href="#116-iterator-迭代器">1.1.6. Iterator 迭代器</a><ul>
+<li><a href="#1161-迭代器-iterator-是什么">1.1.6.1. 迭代器 Iterator 是什么？</a></li>
+<li><a href="#1162-迭代器-iterator-有啥用">1.1.6.2. 迭代器 Iterator 有啥用？</a></li>
+<li><a href="#1163-如何使用">1.1.6.3. 如何使用？</a></li>
+</ul>
+</li>
+<li><a href="#117-有哪些集合是线程不安全的怎么解决呢">1.1.7. 有哪些集合是线程不安全的？怎么解决呢？</a></li>
+</ul>
+</li>
+<li><a href="#12-collection-子接口之-list">1.2. Collection 子接口之 List</a><ul>
+<li><a href="#121-arraylist-和-vector-的区别">1.2.1. Arraylist 和 Vector 的区别?</a></li>
+<li><a href="#122-arraylist-与-linkedlist-区别">1.2.2. Arraylist 与 LinkedList 区别?</a><ul>
+<li><a href="#1221-补充内容双向链表和双向循环链表">1.2.2.1. 补充内容:双向链表和双向循环链表</a></li>
+<li><a href="#1222-补充内容randomaccess-接口">1.2.2.2. 补充内容:RandomAccess 接口</a></li>
+</ul>
+</li>
+<li><a href="#123-说一说-arraylist-的扩容机制吧">1.2.3. 说一说 ArrayList 的扩容机制吧</a></li>
+</ul>
+</li>
+<li><a href="#13-collection-子接口之-set">1.3. Collection 子接口之 Set</a><ul>
+<li><a href="#131-comparable-和-comparator-的区别">1.3.1. comparable 和 Comparator 的区别</a><ul>
+<li><a href="#1311-comparator-定制排序">1.3.1.1. Comparator 定制排序</a></li>
+<li><a href="#1312-重写-compareto-方法实现按年龄来排序">1.3.1.2. 重写 compareTo 方法实现按年龄来排序</a></li>
+</ul>
+</li>
+<li><a href="#132-无序性和不可重复性的含义是什么">1.3.2. 无序性和不可重复性的含义是什么</a></li>
+<li><a href="#133-比较-hashsetlinkedhashset-和-treeset-三者的异同">1.3.3. 比较 HashSet、LinkedHashSet 和 TreeSet 三者的异同</a></li>
+</ul>
+</li>
+<li><a href="#14-map-接口">1.4. Map 接口</a><ul>
+<li><a href="#141-hashmap-和-hashtable-的区别">1.4.1. HashMap 和 Hashtable 的区别</a></li>
+<li><a href="#142-hashmap-和-hashset-区别">1.4.2. HashMap 和 HashSet 区别</a></li>
+<li><a href="#143-hashmap-和-treemap-区别">1.4.3. HashMap 和 TreeMap 区别</a></li>
+<li><a href="#144-hashset-如何检查重复">1.4.4. HashSet 如何检查重复</a></li>
+<li><a href="#145-hashmap-的底层实现">1.4.5. HashMap 的底层实现</a><ul>
+<li><a href="#1451-jdk18-之前">1.4.5.1. JDK1.8 之前</a></li>
+<li><a href="#1452-jdk18-之后">1.4.5.2. JDK1.8 之后</a></li>
+</ul>
+</li>
+<li><a href="#146-hashmap-的长度为什么是-2-的幂次方">1.4.6. HashMap 的长度为什么是 2 的幂次方</a></li>
+<li><a href="#147-hashmap-多线程操作导致死循环问题">1.4.7. HashMap 多线程操作导致死循环问题</a></li>
+<li><a href="#148-hashmap-有哪几种常见的遍历方式">1.4.8. HashMap 有哪几种常见的遍历方式?</a></li>
+<li><a href="#149-concurrenthashmap-和-hashtable-的区别">1.4.9. ConcurrentHashMap 和 Hashtable 的区别</a></li>
+<li><a href="#1410-concurrenthashmap-线程安全的具体实现方式底层具体实现">1.4.10. ConcurrentHashMap 线程安全的具体实现方式/底层具体实现</a><ul>
+<li><a href="#14101-jdk17上面有示意图">1.4.10.1. JDK1.7（上面有示意图）</a></li>
+<li><a href="#14102-jdk18-上面有示意图">1.4.10.2. JDK1.8 （上面有示意图）</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#15-collections-工具类">1.5. Collections 工具类</a><ul>
+<li><a href="#151-排序操作">1.5.1. 排序操作</a></li>
+<li><a href="#152-查找替换操作">1.5.2. 查找,替换操作</a></li>
+<li><a href="#153-同步控制">1.5.3. 同步控制</a></li>
+</ul>
+</li>
+<li><a href="#16-其他重要问题">1.6. 其他重要问题</a><ul>
+<li><a href="#161-什么是快速失败fail-fast">1.6.1. 什么是快速失败(fail-fast)？</a></li>
+<li><a href="#162-什么是安全失败fail-safe呢">1.6.2. 什么是安全失败(fail-safe)呢？</a></li>
+<li><a href="#163-arraysaslist避坑指南">1.6.3. Arrays.asList()避坑指南</a><ul>
+<li><a href="#1631-简介">1.6.3.1. 简介</a></li>
+<li><a href="#1632-阿里巴巴-java-开发手册对其的描述">1.6.3.2. 《阿里巴巴 Java 开发手册》对其的描述</a></li>
+<li><a href="#1633-使用时的注意事项总结">1.6.3.3. 使用时的注意事项总结</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/20/Java%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/20/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/" class="post-title-link" itemprop="url">Java抽象类的构造函数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-20 18:46:00" itemprop="dateCreated datePublished" datetime="2020-08-20T18:46:00+08:00">2020-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#作用">作用</a></li>
+<li><a href="#说明">说明</a></li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/20/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/20/Super%E5%85%B3%E9%94%AE%E5%AD%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/Super%E5%85%B3%E9%94%AE%E5%AD%97/" class="post-title-link" itemprop="url">Super关键字</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-20 17:30:00" itemprop="dateCreated datePublished" datetime="2020-08-20T17:30:00+08:00">2020-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>578</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#调用属性和方法">调用属性和方法</a></li>
+<li><a href="#调用构造器">调用构造器</a></li>
+<li><a href="#说明">说明</a></li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/20/Super%E5%85%B3%E9%94%AE%E5%AD%97/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/20/Java%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/Java%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" class="post-title-link" itemprop="url">Java单例设计模式</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-20 15:38:00" itemprop="dateCreated datePublished" datetime="2020-08-20T15:38:00+08:00">2020-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#设计模式">设计模式</a></li>
+<li><a href="#单例模式">单例模式</a><ul>
+<li><a href="#饿汉式">饿汉式</a></li>
+<li><a href="#懒汉式线程不安全">懒汉式(线程不安全)</a></li>
+<li><a href="#懒汉式线程安全">懒汉式(线程安全)</a></li>
+</ul>
+</li>
+<li><a href="#单例模式的优点">单例模式的优点</a></li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/20/Java%E5%8D%95%E4%BE%8B%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/20/Java%E6%B3%9B%E5%9E%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/Java%E6%B3%9B%E5%9E%8B/" class="post-title-link" itemprop="url">Java泛型</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-20 10:59:00" itemprop="dateCreated datePublished" datetime="2020-08-20T10:59:00+08:00">2020-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>8.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#定义">定义</a></li>
+<li><a href="#泛型的好处">泛型的好处</a></li>
+<li><a href="#集合中使用泛型">集合中使用泛型</a></li>
+<li><a href="#自定义泛型">自定义泛型</a></li>
+<li><a href="#泛型在继承上的体现">泛型在继承上的体现</a></li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/20/Java%E6%B3%9B%E5%9E%8B/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/20/Java%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/Java%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99/" class="post-title-link" itemprop="url">Java重载与重写</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-20 09:11:00" itemprop="dateCreated datePublished" datetime="2020-08-20T09:11:00+08:00">2020-08-20</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>961</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <!-- TOC -->
+
+<ul>
+<li><a href="#重载overload">重载(overload)</a></li>
+<li><a href="#重写override">重写(override)</a></li>
+<li><a href="#说明">说明</a></li>
+</ul>
+<!-- /TOC -->
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/20/Java%E9%87%8D%E8%BD%BD%E4%B8%8E%E9%87%8D%E5%86%99/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/19/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="YunTang1997">
+      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="YunTang1997の博客">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/19/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/" class="post-title-link" itemprop="url">抽象类和接口的区别</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-19 17:30:00" itemprop="dateCreated datePublished" datetime="2020-08-19T17:30:00+08:00">2020-08-19</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
+                </span>
+            </span>
+
+          
+
+          <span class="post-meta-divider">|</span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>354</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li>接口的方法没有方法体（JDK1.8之前），JDK1.8开始也有的方法体（<code>静态方法</code>：使用 <code>static</code>关键字修饰。可以通过<code>接口</code>直接调用静态方法，并执行其方法体；<code>默认方法</code>：使用<code>default</code>关键字修饰。可以通过<code>实现类</code>对象来调用。），而抽象类可以有非抽象的方法（有方法体）。</li>
+<li>接口的方法的访问修饰符都是public（默认public abstarct修饰），抽象类的抽象方法可以有public、protected和default这些修饰符。</li>
+<li>抽象类中可以有普通成员变量，接口中没有普通成员变量，只有常量（默认public static final修饰）。</li>
+<li>一个类可以实现多个接口，但只能实现一个抽象类。</li>
+<li>抽象类可以有构造器，只是抽象类的构造器不能直接调用，但是其子类可以在构造函数中调用其父类（抽象类）的构造函数，接口<strong>没有构造器</strong>。</li></ol>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/08/19/%E6%8A%BD%E8%B1%A1%E7%B1%BB%E5%92%8C%E6%8E%A5%E5%8F%A3%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -490,766 +1244,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/08/12/Java%E5%8F%8D%E5%B0%84/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/12/Java%E5%8F%8D%E5%B0%84/" class="post-title-link" itemprop="url">Java反射</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-12 21:32:00" itemprop="dateCreated datePublished" datetime="2020-08-12T21:32:00+08:00">2020-08-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#反射机制的概述">反射机制的概述</a></li>
-<li><a href="#class类用的方法">Class类用的方法</a></li>
-<li><a href="#创建class类的实例">创建Class类的实例</a></li>
-<li><a href="#代码实例">代码实例</a></li>
-<li><a href="#反射机制优缺点">反射机制优缺点</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/08/12/Java%E5%8F%8D%E5%B0%84/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/12/Mysql%E5%8F%98%E9%87%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/12/Mysql%E5%8F%98%E9%87%8F/" class="post-title-link" itemprop="url">Mysql变量</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-12 20:27:00" itemprop="dateCreated datePublished" datetime="2020-07-12T20:27:00+08:00">2020-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#概述">概述</a></li>
-<li><a href="#系统变量">系统变量</a></li>
-<li><a href="#自定义变量">自定义变量</a><ul>
-<li><a href="#用户变量">用户变量</a></li>
-<li><a href="#局部变量">局部变量</a></li>
-</ul>
-</li>
-<li><a href="#用户变量和局部变量的对比">用户变量和局部变量的对比</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/12/Mysql%E5%8F%98%E9%87%8F/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/08/Java%E9%93%BE%E8%A1%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/08/Java%E9%93%BE%E8%A1%A8/" class="post-title-link" itemprop="url">Java链表</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-08 14:53:00" itemprop="dateCreated datePublished" datetime="2020-07-08T14:53:00+08:00">2020-07-08</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#单向链表">单向链表</a></li>
-<li><a href="#双向链表">双向链表</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/08/Java%E9%93%BE%E8%A1%A8/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/07/Collection/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/07/Collection/" class="post-title-link" itemprop="url">Java之Collection</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-07 14:53:00" itemprop="dateCreated datePublished" datetime="2020-07-07T14:53:00+08:00">2020-07-07</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index"><span itemprop="name">Java</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#基本框架">基本框架</a></li>
-<li><a href="#常用方法">常用方法</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/07/Collection/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/05/Mysql%E9%94%81%E6%9C%BA%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/05/Mysql%E9%94%81%E6%9C%BA%E5%88%B6/" class="post-title-link" itemprop="url">Mysql锁机制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-05 09:13:00" itemprop="dateCreated datePublished" datetime="2020-07-05T09:13:00+08:00">2020-07-05</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#定义">定义</a></li>
-<li><a href="#锁的分类">锁的分类</a></li>
-<li><a href="#表锁偏读">表锁（偏读）</a></li>
-<li><a href="#行锁偏写">行锁（偏写）</a></li>
-<li><a href="#页锁了解">页锁（了解）</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/05/Mysql%E9%94%81%E6%9C%BA%E5%88%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/" class="post-title-link" itemprop="url">Mysql索引优化</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-04 09:13:00" itemprop="dateCreated datePublished" datetime="2020-07-04T09:13:00+08:00">2020-07-04</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>8.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#索引优化分析">索引优化分析</a><ul>
-<li><a href="#单表查询优化">单表查询优化</a></li>
-<li><a href="#关联查询优化">关联查询优化</a></li>
-<li><a href="#索引失效的情况">索引失效的情况</a><ul>
-<li><a href="#最佳左前缀法则">最佳左前缀法则</a></li>
-<li><a href="#索引中使用函数">索引中使用函数</a></li>
-<li><a href="#索引中使用范围">索引中使用范围</a></li>
-<li><a href="#使用select-">使用select *</a></li>
-<li><a href="#使用不等于-或者">使用不等于（!= 或者&lt;&gt;）</a></li>
-<li><a href="#使用is-null或者is-not-nul">使用is null或者is not nul</a></li>
-<li><a href="#使用like">使用like</a></li>
-<li><a href="#字符串varchar不加">字符串varchar不加’’</a></li>
-<li><a href="#使用or">使用or</a></li>
-<li><a href="#总结">总结</a></li>
-<li><a href="#口诀">口诀</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#inexists优化">in、exists优化</a></li>
-<li><a href="#order-by优化">order by优化</a><ul>
-<li><a href="#补充">补充</a></li>
-</ul>
-</li>
-<li><a href="#group-by优化">group by优化</a></li>
-<li><a href="#查询截取分析">查询截取分析</a><ul>
-<li><a href="#慢查询日志">慢查询日志</a><ul>
-<li><a href="#介绍">介绍</a></li>
-<li><a href="#日志分析工具mysqldumpslow">日志分析工具（mysqldumpslow）</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#show-profile">show profile</a></li>
-<li><a href="#全局查询日志">全局查询日志</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/07/04/Mysql%E7%B4%A2%E5%BC%95%E4%BC%98%E5%8C%96/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://yuntang1997.github.io/2020/06/30/Mysql_explain/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="YunTang1997">
-      <meta itemprop="description" content="不要因为一时的安逸蒙蔽了双眼，出来混迟早要还的">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="YunTang1997の博客">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/30/Mysql_explain/" class="post-title-link" itemprop="url">Mysql explain</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-06-30 20:18:00" itemprop="dateCreated datePublished" datetime="2020-06-30T20:18:00+08:00">2020-06-30</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Mysql/" itemprop="url" rel="index"><span itemprop="name">Mysql</span></a>
-                </span>
-            </span>
-
-          
-
-          <span class="post-meta-divider">|</span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- TOC -->
-
-<ul>
-<li><a href="#explain简介">explain简介</a><ul>
-<li><a href="#定义">定义</a></li>
-<li><a href="#作用">作用</a></li>
-<li><a href="#使用语法">使用语法</a></li>
-</ul>
-</li>
-<li><a href="#id重要">id（重要）</a><ul>
-<li><a href="#含义">含义</a></li>
-<li><a href="#id相同">id相同</a></li>
-<li><a href="#id不同">id不同</a></li>
-<li><a href="#id有相同的也有不同的">id有相同的，也有不同的</a></li>
-</ul>
-</li>
-<li><a href="#select_type">select_type</a><ul>
-<li><a href="#含义-1">含义</a></li>
-<li><a href="#simple">simple</a></li>
-<li><a href="#primary">primary</a></li>
-<li><a href="#derived">derived</a></li>
-<li><a href="#subquery">subquery</a></li>
-<li><a href="#dependent-subquery">dependent subquery</a></li>
-<li><a href="#uncacheable-subqurey">uncacheable subqurey</a></li>
-<li><a href="#unionunion-result">union、union result</a></li>
-</ul>
-</li>
-<li><a href="#table">table</a></li>
-<li><a href="#type重要">type（重要）</a><ul>
-<li><a href="#含义-2">含义</a></li>
-<li><a href="#system">system</a></li>
-<li><a href="#const">const</a></li>
-<li><a href="#eq_ref">eq_ref</a></li>
-<li><a href="#ref">ref</a></li>
-<li><a href="#range">range</a></li>
-<li><a href="#allindex">all、index</a></li>
-</ul>
-</li>
-<li><a href="#possible_keys">possible_keys</a></li>
-<li><a href="#key重要">key（重要）</a></li>
-<li><a href="#key_len">key_len</a></li>
-<li><a href="#ref-1">ref</a></li>
-<li><a href="#rows重要">rows（重要）</a></li>
-<li><a href="#extra重要">extra（重要）</a><ul>
-<li><a href="#含义-3">含义</a></li>
-<li><a href="#using-filesort重要">Using filesort（重要）</a></li>
-<li><a href="#using-temporary重要">Using temporary（重要）</a></li>
-<li><a href="#using-index重要">Using index（重要）</a></li>
-<li><a href="#using-where">Using where</a></li>
-<li><a href="#using-join-buffer">Using join buffer</a></li>
-<li><a href="#impossible-where">Impossible where</a></li>
-<li><a href="#select-tables-optimized-away">Select tables optimized away</a></li>
-<li><a href="#distinct">Distinct</a></li>
-</ul>
-</li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/30/Mysql_explain/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1321,7 +1315,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1410,13 +1404,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">127k</span>
+    <span title="站点总字数">161k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:55</span>
+    <span title="站点阅读时长">2:27</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
